@@ -1,14 +1,9 @@
 {
   "$schema": "https://mintlify.com/schema.json",
   "name": "Togai documentation",
-  "openapi": [
-    "/openapi.yaml"
-  ],
+  "openapi": ["/openapi.yaml"],
   "api": {
-    "baseUrl": [
-      "https://sandbox-api.togai.com",
-      "https://api.togai.com"
-    ],
+    "baseUrl": ["https://sandbox-api.togai.com", "https://api.togai.com"],
     "auth": {
       "method": "bearer",
       "inputPrefix": "Bearer <>"
@@ -90,26 +85,18 @@
       "url": "https://github.com/TogaiHQ/togai-mintlify-docs/blob/main/openapi.yaml"
     }
   ],
-  "versions": [
-    "v1"
-  ],
+  "versions": ["v1"],
   "navigation": [
     {
       "group": "Overview",
-      "pages": [
-        "docs/introduction",
-        "docs/how-togai-works"
-      ]
+      "pages": ["docs/introduction", "docs/how-togai-works"]
     },
     {
       "group": "Usage metering",
       "pages": [
         {
           "group": "Defining an event",
-          "pages": [
-            "docs/event-schemas",
-            "docs/event-enrichments"
-          ]
+          "pages": ["docs/event-schemas", "docs/event-enrichments"]
         },
         "docs/event-ingestion",
         "docs/usage-meter"
@@ -139,13 +126,19 @@
         "docs/price-plan-schedule",
         {
           "group": "Quote to cash",
-          "pages": [
-            "docs/qtc-overview",
-            "docs/proposals",
-            "docs/purchases"
-          ]
+          "pages": ["docs/qtc-overview", "docs/proposals", "docs/purchases"]
         },
-        "docs/customer-portal"
+        "docs/customer-portal",
+        {
+          "group": "UI Widgets",
+          "pages": [
+            "docs/ui-widgets/introduction",
+            "docs/ui-widgets/usage",
+            "docs/ui-widgets/api",
+            "docs/ui-widgets/custom-theme-and-styles",
+            "docs/ui-widgets/others"
+          ]
+        }
       ]
     },
     {
@@ -195,7 +188,7 @@
         {
           "group": "Data sources",
           "pages": [
-            "docs/integrations/data-sources/aws-s3",  
+            "docs/integrations/data-sources/aws-s3",
             "docs/integrations/data-sources/aws-redshift",
             "docs/integrations/data-sources/snowflake",
             "docs/integrations/data-sources/jdbc",
@@ -210,7 +203,6 @@
             "docs/integrations/billing-and-invoicing/aws-marketplace",
             "docs/integrations/billing-and-invoicing/zuora",
             "docs/integrations/billing-and-invoicing/chargebee"
-            
           ]
         },
         {
@@ -232,8 +224,6 @@
             "docs/integrations/crm-and-cpq/salesforce",
             "docs/integrations/crm-and-cpq/hubspot",
             "docs/integrations/crm-and-cpq/docusign"
-            
-            
           ]
         },
         {
@@ -247,9 +237,7 @@
         },
         {
           "group": "Marketing",
-          "pages": [
-            "docs/integrations/marketing/first-promoter"
-          ]
+          "pages": ["docs/integrations/marketing/first-promoter"]
         },
         {
           "group": "Data exports",
@@ -464,9 +452,7 @@
         },
         {
           "group": "Metrics",
-          "pages": [
-            "api-reference/metrics/get-togai-metrics"
-          ]
+          "pages": ["api-reference/metrics/get-togai-metrics"]
         },
         {
           "group": "Credits",
@@ -521,9 +507,7 @@
     },
     {
       "group": "Change Log",
-      "pages": [
-        "changelog/change-log"
-      ]
+      "pages": ["changelog/change-log"]
     },
     {
       "group": "How-To's",

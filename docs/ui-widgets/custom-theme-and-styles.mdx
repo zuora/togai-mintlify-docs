@@ -1,0 +1,242 @@
+### Customizing theme
+
+One can pass all the shades of your primary color by yourself to the init theme like
+
+```javascript
+primary : {
+    50: '#F0F6FE',
+    100: '#DDEBFC',
+    200: '#C3DCFA',
+    300: '#9AC7F6',
+    400: '#6BA8EF',
+    500: '#4888E9',
+    600: '#336BDD',
+    700: '#2853C2',
+    800: '#2847A5',
+    DEFAULT: '#2847A5',
+    900: '#254083',
+    950: '#1B2850'
+  }
+```
+
+Or passing the single hex of your color palette like below which we would take the color code for the shade **_900_** and generate the remaining shades ourselves.
+
+`primary : '#254083'`
+
+### Style configuration
+
+Style encapsulation in custom elements web components is removed by disabling shadowRoot of web components and hence the styles from the parent dom will be applied to the widgets.
+
+To prevent widget css leaking to other elements in the dom, styles are namespaced inside the class name `.togai-widget` for every widget.
+
+One could target certain css classes of the widget and override them in the parent. Make sure to use the higher specificity to override.
+
+`togai-ui-widgets` use css variables for scalable css. One can choose to override the variables to change the styles in scale. Below is the list of variables used.
+
+```css
+--togai-color-primary-50: #f0f6fe;
+--togai-color-primary-100: #ddebfc;
+--togai-color-primary-200: #c3dcfa;
+--togai-color-primary-300: #9ac7f6;
+--togai-color-primary-400: #6ba8ef;
+--togai-color-primary-500: #4888e9;
+--togai-color-primary-600: #336bdd;
+--togai-color-primary-700: #2853c2;
+--togai-color-primary-800: #2847a5;
+--togai-color-primary: #2847a5;
+--togai-color-primary-900: #254083;
+--togai-color-primary-950: #1b2850;
+
+--togai-color-gray-50: #ffffff;
+--togai-color-gray-100: #f8fafc;
+--togai-color-gray-200: #f1f5f9;
+--togai-color-gray-300: #e2e8f0;
+--togai-color-gray-400: #cbd5e1;
+--togai-color-gray-500: #94a3b8;
+--togai-color-gray-600: #64748b;
+--togai-color-gray-700: #475569;
+--togai-color-gray-800: #242f40;
+--togai-color-gray-900: #1e293b;
+--togai-color-gray: #1e293b;
+--togai-color-gray-950: #020617;
+
+--togai-color-accent-green-50: #edfcf6;
+--togai-color-accent-green-100: #d4f7e7;
+--togai-color-accent-green-200: #aceed4;
+--togai-color-accent-green-300: #77debb;
+--togai-color-accent-green-400: #3fc89e;
+--togai-color-accent-green-500: #1cad85;
+--togai-color-accent-green-600: #0f8a6b;
+--togai-color-accent-green: #0f8a6b;
+--togai-color-accent-green-700: #0c7059;
+--togai-color-accent-green-800: #0c5947;
+--togai-color-accent-green-900: #0b493d;
+--togai-color-accent-green-950: #052922;
+
+--togai-color-accent-red-50: #fef2f2;
+--togai-color-accent-red-100: #fee2e2;
+--togai-color-accent-red-200: #fecaca;
+--togai-color-accent-red-300: #fca5a5;
+--togai-color-accent-red-400: #f87171;
+--togai-color-accent-red-500: #ef4444;
+--togai-color-accent-red-600: #dc2626;
+--togai-color-accent-red: #dc2626;
+--togai-color-accent-red-700: #b91c1c;
+--togai-color-accent-red-800: #991b1b;
+--togai-color-accent-red-900: #7f1d1d;
+--togai-color-accent-red-950: #450a0a;
+
+--togai-color-accent-yellow-50: #fffbeb;
+--togai-color-accent-yellow-100: #fef3c7;
+--togai-color-accent-yellow-200: #fde68a;
+--togai-color-accent-yellow-300: #fcd34d;
+--togai-color-accent-yellow-400: #fbbf24;
+--togai-color-accent-yellow-500: #f59e0b;
+--togai-color-accent-yellow-600: #d97706;
+--togai-color-accent-yellow-700: #b45309;
+--togai-color-accent-yellow-800: #92400e;
+--togai-color-accent-yellow-900: #78350f;
+--togai-color-accent-yellow-950: #451a03;
+--togai-color-accent-yellow: #d97706;
+
+--togai-color-accent-rose-50: #fff1f2;
+--togai-color-accent-rose-100: #ffe4e6;
+--togai-color-accent-rose-200: #fecdd3;
+--togai-color-accent-rose-300: #fda4af;
+--togai-color-accent-rose-400: #fb7185;
+--togai-color-accent-rose-500: #f43f5e;
+--togai-color-accent-rose-600: #e11d48;
+--togai-color-accent-rose-700: #be123c;
+--togai-color-accent-rose: #be123c;
+--togai-color-accent-rose-800: #9f1239;
+--togai-color-accent-rose-900: #881337;
+--togai-color-accent-rose-950: #4c0519;
+
+--togai-color-accent-purple-50: #faf5ff;
+--togai-color-accent-purple-100: #f3e8ff;
+--togai-color-accent-purple-200: #e9d5ff;
+--togai-color-accent-purple-300: #d8b4fe;
+--togai-color-accent-purple-400: #c084fc;
+--togai-color-accent-purple-500: #a855f7;
+--togai-color-accent-purple-600: #9333ea;
+--togai-color-accent-purple-700: #7e22ce;
+--togai-color-accent-purple: #7e22ce;
+--togai-color-accent-purple-800: #6b21a8;
+--togai-color-accent-purple-900: #581c87;
+--togai-color-accent-purple-950: #3b0764;
+
+--togai-color-accent-indigo-50: #eef2ff;
+--togai-color-accent-indigo-100: #e0e7ff;
+--togai-color-accent-indigo-200: #c7d2fe;
+--togai-color-accent-indigo-300: #a5b4fc;
+--togai-color-accent-indigo-400: #818cf8;
+--togai-color-accent-indigo-500: #6366f1;
+--togai-color-accent-indigo-600: #4f46e5;
+--togai-color-accent-indigo-700: #4338ca;
+--togai-color-accent-indigo: #4338ca;
+--togai-color-accent-indigo-800: #3730a3;
+--togai-color-accent-indigo-900: #312e81;
+--togai-color-accent-indigo-950: #1e1b4b;
+
+--togai-color-accent-orange-50: #fff7ed;
+--togai-color-accent-orange-100: #ffedd5;
+--togai-color-accent-orange-200: #fed7aa;
+--togai-color-accent-orange-300: #fdba74;
+--togai-color-accent-orange-400: #fb923c;
+--togai-color-accent-orange-500: #f97316;
+--togai-color-accent-orange-600: #ea580c;
+--togai-color-accent-orange-700: #c2410c;
+--togai-color-accent-orange: #c2410c;
+--togai-color-accent-orange-800: #9a3412;
+--togai-color-accent-orange-900: #7c2d12;
+--togai-color-accent-orange-950: #431407;
+
+--togai-color-accent-teal-50: #f0fdfa;
+--togai-color-accent-teal-100: #ccfbf1;
+--togai-color-accent-teal-200: #99f6e4;
+--togai-color-accent-teal-300: #5eead4;
+--togai-color-accent-teal-400: #2dd4bf;
+--togai-color-accent-teal-500: #14b8a6;
+--togai-color-accent-teal-600: #0d9488;
+--togai-color-accent-teal-700: #0f766e;
+--togai-color-accent-teal: #0f766e;
+--togai-color-accent-teal-800: #115e59;
+--togai-color-accent-teal-900: #134e4a;
+--togai-color-accent-teal-950: #042f2e;
+
+--togai-color-accent-lime-50: #f7fee7;
+--togai-color-accent-lime-100: #ecfccb;
+--togai-color-accent-lime-200: #d9f99d;
+--togai-color-accent-lime-300: #bef264;
+--togai-color-accent-lime-400: #a3e635;
+--togai-color-accent-lime-500: #84cc16;
+--togai-color-accent-lime-600: #65a30d;
+--togai-color-accent-lime-700: #4d7c0f;
+--togai-color-accent-lime: #4d7c0f;
+--togai-color-accent-lime-800: #3f6212;
+--togai-color-accent-lime-900: #365314;
+--togai-color-accent-lime-950: #1a2e05;
+
+--togai-color-white: #ffffff;
+--togai-color-nav-bg: var(--togai-color-gray-950);
+--togai-color-nav-bg-light: var(--togai-color-gray-900);
+--togai-color-nav-font: var(--togai-color-gray-400);
+--togai-color-nav-font-light: var(--togai-color-gray-50);
+--togai-color-nav-highlight: var(--togai-color-gray-950);
+
+--togai-radius-xs: 0.25rem;
+--togai-radius-sm: 0.5rem;
+--togai-radius-md: 0.75rem;
+--togai-radius-lg: 1.5rem;
+--togai-radius-circular: 50%;
+
+--togai-spacing-0_5: 0.25rem;
+--togai-spacing-1: 0.5rem;
+--togai-spacing-1_5: 0.75rem;
+--togai-spacing-2: 1rem;
+--togai-spacing-2_5: 1.25rem;
+--togai-spacing-3: 1.5rem;
+--togai-spacing-3_5: 1.75rem;
+--togai-spacing-4: 2rem;
+--togai-spacing-4_5: 2.5rem;
+--togai-spacing-5: 3rem;
+--togai-spacing-5_5: 3.5rem;
+--togai-spacing-6: 4rem;
+--togai-spacing-6_5: 4.5rem;
+--togai-spacing-7: 5rem;
+
+--togai-shadow-1: 0rem 0.125rem 0.5rem 0rem var(--togai-color-gray-300);
+--togai-shadow-2: 0rem 0.125rem 0.5rem 0rem var(--togai-color-gray-500);
+--togai-shadow-3: 0rem 0.125rem 0.5rem 0rem var(--togai-color-gray-700);
+--togai-shadow-none: 0rem 0rem white;
+
+--togai-font-xs: 0.75rem;
+--togai-font-sm: 0.875rem;
+--togai-font-md: 1rem;
+--togai-font-lg: 1.125rem;
+--togai-font-xlg: 1.25rem;
+
+--togai-font-weight-regular: 400;
+--togai-font-weight-medium: 500;
+--togai-font-weight-semibold: 600;
+--togai-font-weight-bold: 700;
+
+--togai-font-size-h1: 4.25rem;
+--togai-font-size-h1--line-height: 5.0625rem;
+--togai-font-size-h2: 2.625rem;
+--togai-font-size-h2--line-height: 3.125rem;
+--togai-font-size-h3: 1.625rem;
+--togai-font-size-h3--line-height: 1.9375rem;
+--togai-font-size-h4: 1rem;
+--togai-font-size-h4--line-height: 1.1875rem;
+--togai-font-size-body1: 0.875rem;
+--togai-font-size-body1--line-height: 1.0625rem;
+--togai-font-size-body2: 0.75rem;
+--togai-font-size-body2--line-height: 0.875rem;
+--togai-font-size-title14: 0.875rem;
+--togai-font-size-title14--line-height: 1.0625rem;
+--togai-font-size-title12: 0.75rem;
+--togai-font-size-title12--line-height: 0.875rem;
+--togai-font-size-title10: 0.625rem;
+--togai-font-size-title10--line-height: 0.75rem;
+```

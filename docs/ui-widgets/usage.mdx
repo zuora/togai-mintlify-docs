@@ -1,0 +1,49 @@
+### Installation
+
+`npm i togai-ui-widgets`
+
+### General Usage
+
+```javascript
+// all styles for widgets are bundled here. It should always be imported.
+import "togai-ui-widgets/dist/style.css";
+
+// this will expose the TogaiWidget instance to window object.
+import "togai-ui-widgets/dist/packages/config-provider";
+
+// imports only the required widgets. Once imported, web component of name `togai-<package_name>` will be registered.
+import "togai-ui-widgets/dist/packages/<package_name>";
+
+// Alternatively, if you prefer to import all packages at once and do not worry about the bundle size,
+import "togai-ui-widgets/dist/packages";
+```
+
+### Sample Usage
+
+Import the below in your app's main file.
+
+```javascript
+import "togai-ui-widgets/dist/style.css";
+import "togai-ui-widgets/dist/packages/config-provider";
+```
+
+Initialize your app's sub tree within which you gonna render the widgets with,
+
+```javascript
+TogaiWidget.init(
+  token_obtained_from_togai_api,
+  {
+    primary: "#e6007e",
+  },
+  "sandbox"
+);
+```
+
+```javascript
+import "togai-ui-widgets/dist/packages/metrics";
+import { jsonStringify } from "togai-ui-widgets/dist/packages/utils";
+
+<togai-metrics props={jsonStringify(props)} />;
+```
+
+**Note** : The widget wont render views unless the TogaiWidget is initialized with the token.

@@ -1,0 +1,34 @@
+### Acquiring token
+
+You can refer to [this page](https://docs.togai.com/api-reference/authentication/get-delegate-token-for-customer-portal) for generating the token.
+
+Or alternatively you can refer [this page](https://docs.togai.com/api-reference/authentication/customer-portal-auth) if you have already created a contact for the specified customer.
+
+### Internationalization
+
+We support internationalization for static texts, number formatting, date formatting and currency formatting inside the widgets.
+The content from the api wont be translated and its the user's responsibility to take care of i18n for all the texts that you pass via props.
+Per language translations would only be part of your app bundle if you imports it explicitly and hence support tree shaking. The default language is `'en-US'`.
+For now only ptBR translations are supported and more languages would be added on deman.
+
+#### Sample usage
+
+```javascript
+import ptBRtranslation 'togai-ui-widgets/locale/pt-BR'
+TogaiWidget.init(token,theme,env,'pt-BR',ptBRTranslation)
+
+// if no language and translation is mentioned, it fallback to en-US.
+```
+
+### Caveats
+
+#### Limitations with React
+
+The current stable React version 18.x.x [doesnt have complete support](https://custom-elements-everywhere.com/#react) for web components, though its been fixed in the upcoming major release.
+
+So to work around this, props are combined into a single object and passed as stringified json through special stringify function exported from the package.
+
+```javascript
+import { jsonStringify } from "togai-ui-widgets/dist/packages/utils";
+<togai-credits props={jsonStringify(props)} />;
+```
