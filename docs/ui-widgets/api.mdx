@@ -1,0 +1,164 @@
+#### TogaiWidget class
+
+TogaiWidget is a class with static properties exposed to the window object which is used for initializing the widget with the user provided configs.
+You can access the properties of the TogaiWidget but could only be set via class methods and not directly
+
+```javascript
+/**
+* Initializes the togai widget with the user defined configuration.
+* Can only be invoked once in a session
+@param {string} token - token obtained from togai for accessing the portal apis
+@param {string | object} theme - You can pass a single color hex or a object for primary palette for shades ranging from 100 to 900.
+@param {'sandbox' | 'production'} env
+@param {'pt-BR'} lang - only 'pt-BR' is supported. Leave it blank for 'en-US'
+@param {object} locale - Locale imported from 'togai-ui-widgets/dist/locale/<language>'. Leave it blank for 'en-US'
+ */
+function init(token, theme, env, lang, locale) {}
+```
+
+```javascript
+/**
+If you want to update the token after initializing the TogaiWidget, you can invoke this method with the new token.
+@param {string} token - new token obtained from togai for accessing the portal apis
+ */
+function setToken(token) {}
+```
+
+```javascript
+/**
+to expose the TogaiWidget to the window object.
+*/
+import "togai-ui-widgets/dist/packages/config-provider";
+```
+
+#### Metrics Widget
+
+Togai Metrics Widget allows you to render Usage metrics or Revenue metrics with multiple config options.
+
+<Frame caption="Revenue Metrics">
+  <img src="/docs/ui-widgets/images/revenue-metrics.png" />
+</Frame>
+
+<Frame caption="Total Revenue Metrics">
+  <img src="/docs/ui-widgets/images/total-revenue-metrics.png" />
+</Frame>
+
+```javascript
+Props {
+  /**
+   * Entity for metrics
+   * @default REVENUE
+   */
+  type? : 'USAGE' | 'REVENUE'
+  /**
+   * Title for the metrics
+   */
+  label : string
+
+  /**
+   * Data options for metrics
+   */
+  metricsInputs : {
+  ACCOUNT_ID : string[] | {
+  source?:
+  | {
+  from?: 'organization'
+  queryParams?: Record<string, any>
+  }
+  | {
+  from: 'map',
+  options: { [accountId: string]: string }
+  }
+  }
+  DATE_RANGE : [number,number]
+  USAGE_METER_ID : string[] | {
+  hidden : boolean
+  source : {
+  from : 'pricing_schedule'
+  accountId : string
+  } | {
+  from : map
+  options : { [usageMeterId : string] : string }
+  }
+  }
+  },
+  /**
+   * Options for rendering the chart
+   */
+  datasetsOptions: {
+  colorPalette: string[]
+  },
+  /**
+   * Transformations to apply to the chart data
+   * CUMULATIVE : add up all the previous data points
+   * SORT : sort data by date
+   */
+  chartDataTransformations : <'CUMULATIVE' | 'SORT'>[]
+}
+
+```
+
+#### Credits Widget
+
+Refer the [docs page](https://docs.togai.com/docs/credits#credits) to learn about credits.
+
+```javascript
+Props {
+  /**
+   * Togai accountId for which the credits should be displayed
+   */
+  accountId : string
+}
+```
+
+#### Wallet Widget
+
+Refer the [docs page](https://docs.togai.com/docs/payments-and-wallet#wallet) to learn about wallet.
+
+<Frame caption="Togai Wallet">
+  <img src="/docs/ui-widgets/images/wallet.png" />
+</Frame>
+
+```javascript
+Props {
+  /**
+   * Togai accountId for which the wallet should be displayed
+   */
+  accountId : string
+}
+```
+
+#### Feature Balance Widget
+
+Refer the [docs page](https://docs.togai.com/docs/billable-items#features) to learn about features
+
+<Frame caption="Togai Wallet">
+  <img src="/docs/ui-widgets/images/features.png" />
+</Frame>
+
+```javascript
+Props {
+  /**
+   * Togai accountId for which the feature balance should be displayed
+   */
+  accountId : string
+}
+```
+
+#### Pricing Schedule Rate cards
+
+Refer the [docs page](https://docs.togai.com/docs/price-plan-schedule#overview) to learn about pricing schedule.
+You can choose to display pricing schedule rate cards with this widget.
+
+<Frame caption="Togai Wallet">
+  <img src="/docs/ui-widgets/images/pricing-schedule-rate-cards.png" />
+</Frame>
+
+```javascript
+Props {
+ /**
+  * Togai accountId for which the pricing schedule should be fetched
+  */
+ accountId : string
+}
+```
