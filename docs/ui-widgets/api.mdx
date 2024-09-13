@@ -5,29 +5,29 @@ You can access the properties of the TogaiWidget but could only be set via class
 
 ```javascript
 /**
-* Initializes the togai widget with the user defined configuration.
-* Can only be invoked once in a session
-@param {string} token - token obtained from togai for accessing the portal apis
-@param {string | object} theme - You can pass a single color hex or a object for primary palette for shades ranging from 100 to 900.
-@param {'sandbox' | 'production'} env
-@param {'pt-BR'} lang - only 'pt-BR' is supported. Leave it blank for 'en-US'
-@param {object} locale - Locale imported from 'togai-ui-widgets/dist/locale/<language>'. Leave it blank for 'en-US'
+  * Initializes the togai widget with the user defined configuration.
+  * Can only be invoked once in a session
+  @param {string} token - token obtained from togai for accessing the portal apis
+  @param {string | object} theme - You can pass a single color hex or a object for primary palette for shades ranging from 100 to 900.
+  @param {'sandbox' | 'production'} env
+  @param {'pt-BR'} lang - only 'pt-BR' is supported. Leave it blank for 'en-US'
+  @param {object} locale - Locale imported from 'togai-ui-widgets/dist/locale/<language>'. Leave it blank for 'en-US'
  */
 function init(token, theme, env, lang, locale) {}
 ```
 
 ```javascript
 /**
-If you want to update the token after initializing the TogaiWidget, you can invoke this method with the new token.
-@param {string} token - new token obtained from togai for accessing the portal apis
+  * If you want to update the token after initializing the TogaiWidget, you can invoke this method with the new token.
+  @param {string} token - new token obtained from togai for accessing the portal apis
  */
 function setToken(token) {}
 ```
 
 ```javascript
 /**
-to expose the TogaiWidget to the window object.
-*/
+  * To expose the TogaiWidget to the window object.
+ */
 import "togai-ui-widgets/dist/packages/config-provider";
 ```
 
@@ -46,54 +46,54 @@ Togai Metrics Widget allows you to render Usage metrics or Revenue metrics with 
 ```javascript
 Props {
   /**
-   * Entity for metrics
-   * @default REVENUE
+    * Entity for metrics
+    * @default REVENUE
    */
   type? : 'USAGE' | 'REVENUE'
   /**
-   * Title for the metrics
+    * Title for the metrics
    */
   label : string
 
   /**
-   * Data options for metrics
+    * Data options for metrics
    */
   metricsInputs : {
-  ACCOUNT_ID : string[] | {
-  source?:
-  | {
-  from?: 'organization'
-  queryParams?: Record<string, any>
-  }
-  | {
-  from: 'map',
-  options: { [accountId: string]: string }
-  }
-  }
-  DATE_RANGE : [number,number]
-  USAGE_METER_ID : string[] | {
-  hidden : boolean
-  source : {
-  from : 'pricing_schedule'
-  accountId : string
-  } | {
-  from : map
-  options : { [usageMeterId : string] : string }
-  }
-  }
+    ACCOUNT_ID : string[] | {
+    source?:
+    | {
+      from?: 'organization'
+      queryParams?: Record<string, any>
+    }
+    | {
+      from: 'map',
+      options: { [accountId: string]: string }`
+    }
+    }
+    DATE_RANGE : [number,number]
+    USAGE_METER_ID : string[] | {
+    hidden : boolean
+    source : {
+      from : 'pricing_schedule'
+      accountId : string
+    } | {
+      from : map
+      options : { [usageMeterId : string] : string }
+    }
+    }
   },
   /**
    * Options for rendering the chart
    */
-  datasetsOptions: {
-  colorPalette: string[]
+  datasetsOptions?: {
+    colorPalette: string[]
   },
   /**
-   * Transformations to apply to the chart data
-   * CUMULATIVE : add up all the previous data points
-   * SORT : sort data by date
+    * Transformations to apply to the chart data
+    * CUMULATIVE : add up all the previous data points
+    * SORT : sort data by date
    */
-  chartDataTransformations : <'CUMULATIVE' | 'SORT'>[]
+  chartDataTransformations? : <'CUMULATIVE' | 'SORT'>[]
 }
 
 ```
@@ -160,5 +160,25 @@ Props {
   * Togai accountId for which the pricing schedule should be fetched
   */
  accountId : string
+ /**
+  * Data toolbar actions to show. If empty, it will display all the actions
+  */
+ filters?: Array<'sort'|'search'|'groupBy'>
+  /**
+   * Whether to show rate card details or not
+  */
+ showRateCardDetails?: boolean
+  /**
+   * List the type of rate cards to show. If empty, it will display all types of rate cards
+  */
+ rateCardTypeFilters?: Array<
+    'billingEntitlementRateCards' |
+    'entitlementOverageRateCards'|
+    'fixedFeeRateCards'|
+    'licenseRateCards'|
+    'usageRateCards'|
+    'creditGrantRateCards' |
+    'minimumCommitment'
+    >
 }
 ```
