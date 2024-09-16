@@ -502,6 +502,19 @@
             "api-reference/invoicegroups/add-accounts-to-an-invoice-group",
             "api-reference/invoicegroups/remove-accounts-from-an-invoice-group-removing-all-accounts-will-also-delete-the-invoice-group"
           ]
+        },
+        {
+          "group": "Alerts",
+          "pages": [
+            "api-reference/alerts/list-alert-templates",
+            "api-reference/alerts/get-an-alert-template",
+            "api-reference/alerts/create-an-alert",
+            "api-reference/alerts/list-alerts",
+            "api-reference/alerts/update-an-alert",
+            "api-reference/alerts/list-incidents",
+            "api-reference/alerts/get-an-incident",
+            "api-reference/alerts/update-an-incident-status"
+          ]
         }
       ]
     },
