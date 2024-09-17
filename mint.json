@@ -506,6 +506,7 @@
         {
           "group": "Alerts",
           "pages": [
+            "api-reference/alerts/index",
             "api-reference/alerts/list-alert-templates",
             "api-reference/alerts/get-an-alert-template",
             "api-reference/alerts/create-an-alert",
