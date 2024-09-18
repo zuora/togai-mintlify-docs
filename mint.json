@@ -515,6 +515,19 @@
             "api-reference/alerts/get-an-incident",
             "api-reference/alerts/update-an-incident-status"
           ]
+        },
+        {
+          "group": "Reports",
+          "pages": [
+            "api-reference/reports/list-reports"
+          ]
+        },
+        {
+          "group": "File Storage",
+          "pages": [
+            "api-reference/file-storage/get-a-download-url-for-a-file",
+            "api-reference/file-storage/get-a-file"
+          ]
         }
       ]
     },
