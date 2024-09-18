@@ -1,22 +1,68 @@
 ---
 # openapi-schema: "alert_template_openapi UnprocessedEventParameterSchema"
-title: Alert templates and schema
+title: Introduction
 ---
 
+Togai's Alerting System is designed to monitor various entities for specific conditions and trigger incidents when these conditions are met. It is composed of alert templates, alerts, and incidents. The system allows users to create alerts to define conditions and thresholds on state of a single entity or group of entities. If an alert condition is satisfied, the system will create an incident.
+
+## Entities of Alerts module
+
+### Alert template
+An Alert Template serves as a blueprint for creating alerts that monitor specific entities for certain conditions. The purpose of an alert template is to define the logic and thresholds for triggering alerts in various scenarios. Commonly, the template blueprint has the structure resembling this: Property of the [Entity or entities] belonging to the [Owner] breaches the [Condition] where condition in turn has a condition operation and threshold. 
+
+**Example:**
+- **Alert template**: `credit_low_balance`
+  
+  **Entity**: Credits
+  
+  **Owner**: Account
+
+  **Parameters**: Threshold
+  
+  **Condition**: Balance of `Entity: Credits` belonging to `Owner: Account` drops below  `Parameter: Threshold`
+
+### Alert
+An Alert can be imagined as an instance of an `alert templates` combined with a set of `parameters`. Alerts monitor data for breaches depending on the configured condition thresholds.
+
+**Example:**
+
+- **Alert template**: `credit_low_balance`
+  
+  **Entity**: Credits
+  
+  **Owner**: Account = Acc1
+
+  **Parameters**: Threshold = 100$
+  
+  **Condition**: Balance of `Entity: Credits` belonging to `Owner: Account Acc1` drops below  `Parameter: 100$`
+
+### Incident
+
+An Incident is created when the condition defined in an alert is met, i.e., when the threshold is breached. The incident serves as a notification or event that requires action. Each incident record includes the open and close time stamps, as well as snapshots of the data being evaluated around the time of each incident also termed as `Report Data`.
+
+<Tip>
+**Short Summary:**
+- Alert Template + Parameters => Alert
+- Alert + Condition is breached => Incident containing Report Data
+</Tip>
+
+
+
+## Alert templates
 |alertTemplateId|Entity|Owner Details|Parameters|Report Data|Auto Resolvable|
 |---|---|---|---|---|---|
-|unprocessed_events|`N/A`|`N/A`|[*unprocessedEventParams*](#unprocessedevent-params)|[*unprocessedEventReportData*](#unprocessedevent-report-data)|`FALSE`|
-|usage_breach|`USAGE_METER`|`ACCOUNT`|[*usageBreachParams*](#usagebreach-params)|[*usageBreachReportData*](#usagebreach-report-data)|`FALSE`|
-|credit_low_balance|`CREDIT`|`ACCOUNT`|[*lowBalanceParams*](#lowbalance-params)|[*lowBalanceReportData*](#lowbalance-report-data)|`TRUE`|
-|wallet_low_balance|`WALLET`|`ACCOUNT`|[*lowBalanceParams*](#lowbalance-params)|[*lowBalanceReportData*](#lowbalance-report-data)|`TRUE`|
-|entitlement_low_balance|`FEATURE`|`ACCOUNT`|[*lowBalanceParams*](#lowbalance-params)|[*lowBalanceReportData*](#lowbalance-report-data)|`TRUE`|
-|invoice_due_breach|`INVOICE`|`ACCOUNT`|[*invoiceDueBreachParams*](#invoiceduebreach-params)|[*invoiceDueBreachReportData*](#invoiceduebreach-report-data)|`FALSE`|
-|invoice_overdue_breach|`INVOICE`|`ACCOUNT`|[*invoiceDueBreachParams*](#invoiceduebreach-params)|[*invoiceDueBreachReportData*](#invoiceduebreach-report-data)|`FALSE`|
-|unpaid_invoice_amount_breach|`null`|`ACCOUNT`|[*unpaidInvoiceAmtBreachParams*](#unpaidinvoiceamountbreach-params)|[*unpaidInvoiceAmtBreachReportData*](#unpaidinvoiceamountbreach-report-data)|`TRUE`|
+|**`unprocessed_events`**|`N/A`|`N/A`|[*unprocessedEventParams*](#unprocessedevent-params)|[*unprocessedEventReportData*](#unprocessedevent-report-data)|`FALSE`|
+|**`usage_breach`**|`USAGE_METER`|`ACCOUNT`|[*usageBreachParams*](#usagebreach-params)|[*usageBreachReportData*](#usagebreach-report-data)|`FALSE`|
+|**`credit_low_balance`**|`CREDIT`|`ACCOUNT`|[*lowBalanceParams*](#lowbalance-params)|[*lowBalanceReportData*](#lowbalance-report-data)|`TRUE`|
+|**`wallet_low_balance`**|`WALLET`|`ACCOUNT`|[*lowBalanceParams*](#lowbalance-params)|[*lowBalanceReportData*](#lowbalance-report-data)|`TRUE`|
+|**`entitlement_low_balance`**|`FEATURE`|`ACCOUNT`|[*lowBalanceParams*](#lowbalance-params)|[*lowBalanceReportData*](#lowbalance-report-data)|`TRUE`|
+|**`invoice_due_breach`**|`INVOICE`|`ACCOUNT`|[*invoiceDueBreachParams*](#invoiceduebreach-params)|[*invoiceDueBreachReportData*](#invoiceduebreach-report-data)|`FALSE`|
+|**`invoice_overdue_breach`**|`INVOICE`|`ACCOUNT`|[*invoiceDueBreachParams*](#invoiceduebreach-params)|[*invoiceDueBreachReportData*](#invoiceduebreach-report-data)|`FALSE`|
+|**`unpaid_invoice_amount_breach`**|`null`|`ACCOUNT`|[*unpaidInvoiceAmtBreachParams*](#unpaidinvoiceamountbreach-params)|[*unpaidInvoiceAmtBreachReportData*](#unpaidinvoiceamountbreach-report-data)|`TRUE`|
 
 ## Parameter Schema
 
-#### UnprocessedEvent Params:
+#### UnprocessedEvent Params
 <Expandable defaultOpen>
   <ParamField body="window" type="integer" >
   This is the last window number of minutes from alert interval time that will be considered for generating the alert
@@ -30,7 +76,7 @@ title: Alert templates and schema
 </Expandable>
 
 
-#### UsageBreach Params:
+#### UsageBreach Params
 <Expandable defaultOpen>
   <ParamField body="threshold" type="integer" required>
   Threshold limit for a given aggregation period above which alerts are generated.
@@ -41,14 +87,14 @@ title: Alert templates and schema
 </Expandable>
 
 
-#### LowBalance Params:
+#### LowBalance Params
 <Expandable defaultOpen>
   <ParamField body="minThreshold" type="integer" required>
     Minimum threshold limit below which incidents are created
   </ParamField>
 </Expandable>
 
-#### InvoiceDueBreach Params:
+#### InvoiceDueBreach Params
 <Expandable defaultOpen>
   <ParamField body="thresholdDays" type="integer" required>
     Threshold limit for days above which incidents are created
@@ -58,7 +104,7 @@ title: Alert templates and schema
   </ParamField>
 </Expandable>
 
-#### UnpaidInvoiceAmountBreach Params:
+#### UnpaidInvoiceAmountBreach Params
 <Expandable defaultOpen>
   <ParamField body="thresholdSum" type="integer" required>
     Threshold limit for unpaid invoice sum above which incidents are created
@@ -67,21 +113,21 @@ title: Alert templates and schema
 
 ## Report Data Schema
 
-#### UnprocessedEvent Report Data:
+#### UnprocessedEvent Report Data
 <Expandable defaultOpen>
   <ParamField body="count" type="integer" required>
     Count of the unprocessed events
   </ParamField>
 </Expandable>
 
-#### UsageBreach Report Data:
+#### UsageBreach Report Data
 <Expandable defaultOpen>
   <ParamField body="usage" type="integer" required>
      Usage units
   </ParamField>
 </Expandable>
 
-#### LowBalance Report Data:
+#### LowBalance Report Data
 <Expandable defaultOpen>
   <ParamField body="balance" type="integer" required>
     Remaining balance of credits for an account
@@ -94,7 +140,7 @@ title: Alert templates and schema
   </ParamField>
 </Expandable>
 
-#### InvoiceDueBreach Report Data:
+#### InvoiceDueBreach Report Data
 <Expandable defaultOpen>
   <ParamField body="count" type="integer" required>
     Sum of all invoices that are due / overdue after threshold number of days
@@ -107,7 +153,7 @@ title: Alert templates and schema
   </ParamField>
 </Expandable>
 
-#### UnpaidInvoiceAmountBreach Report Data:
+#### UnpaidInvoiceAmountBreach Report Data
 <Expandable defaultOpen>
   <ParamField body="sum" type="number" required>
     Sum of the total unpaid amount
