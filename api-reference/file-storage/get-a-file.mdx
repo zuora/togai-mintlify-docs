@@ -1,3 +1,9 @@
 ---
 openapi: get /files/{file_id}
 ---
+
+This API returns a `302 Redirect` response with appropriate `Location` header such that the download of the file is initiated when the API is triggered from a webapp on a browser.
+
+<Note>
+  If the requirement is to get an auth-less URL which can be easily shared, refer [Generate download URL API](/api-reference/file-storage/get-a-download-url-for-a-file) 
+</Note>

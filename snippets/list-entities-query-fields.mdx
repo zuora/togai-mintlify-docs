@@ -233,3 +233,34 @@ export const listPaymentsQueryFields = {
     ],
     default_sort: { "created_at": "DESC", "id": "ASC" }
 }
+
+export const listReportsQueryFields = {
+    query_fields: [
+        { name: "id", type: "string", description: "Unique identifier of the report" },
+        { name: "account_id", type: "string", description: "Unique identifier of the account associated with the report" },
+        { name: "status", type: "enum", description: "Status of the report" },
+        { name: "type", type: "enum", description: "Type of the report" }
+    ],
+    allowed_combinations: [
+        ["id"],
+        ["account_id"],
+        ["account_id", "status"],
+        ["account_id", "status", "type"],
+        ["report_template_id"],
+        ["report_template_id", "status"],
+        ["account_id", "report_template_id", "status"]
+    ],
+    search_fields: [
+        { name: "id", type: "string", description: "Search by  Unique identifier of the reports" },
+        { name: "name", type: "string", description: "Search by name of the reports" },
+        { name: "file_id", type: "string", description: "Search by file id of the reports" },
+        { name: "account_id", type: "string", description: "Search by account id of the reports" },
+        { name: "report_template_id", type: "string", description: "Search by report template id of the reports" }
+    ],
+    sort_fields: [
+        { name: "id", type: "string", description: "" },
+        { name: "account_id", type: "string", description: "" },
+        { name: "report_template_id", type: "string", description: "" }
+    ],
+    default_sort: { "id": "DESC" }
+}

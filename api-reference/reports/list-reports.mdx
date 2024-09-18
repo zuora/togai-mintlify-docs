@@ -1,3 +1,21 @@
 ---
 openapi: get /reports
 ---
+
+import {listReportsQueryFields} from "/snippets/list-entities-query-fields.mdx";
+import {ListAPIInfo} from "/snippets/list-api-query-param-info.mdx";
+
+<ListAPIInfo info={listReportsQueryFields} show_filter_combinations/>
+
+<Tip>
+  **Downloading Reports:**
+
+  Reports can be downloaded using the `fileId` parameter of the `Report` entity using the [Files API](/api-reference/file-storage/get-a-file).
+</Tip>
+
+<Tip>
+  **Sharing Reports:**
+
+  Sharable links can be generated using the [Generate download URL API](/api-reference/file-storage/get-a-download-url-for-a-file) 
+  which are S3 signed URLs valid for 1 hour and do not require authentication.
+</Tip>
