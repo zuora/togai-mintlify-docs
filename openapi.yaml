@@ -51,6 +51,8 @@ tags:
     description: Dashboard level calls
   - name: Customer Portal
     description: Portal level calls
+  - name: Alerts
+    description: Alert level calls
   - name: Event Management
     description: APIs for getting events ingested in Togai
     externalDocs:
@@ -2217,6 +2219,21 @@ paths:
           $ref: '#/components/responses/ErrorResponse'
         '429':
           $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /reports:
+    get:
+      tags:
+        - Reports
+      summary: List reports
+      description: List reports
+      operationId: listReports
+      parameters:
+        - $ref: '#/components/parameters/next_token'
+        - $ref: '#/components/parameters/page_size'
+      responses:
+        '200':
+          $ref: '#/components/responses/ReportsPaginatedResponse'
         default:
           $ref: '#/components/responses/ErrorResponse'
   /portal/token:
@@ -5443,6 +5460,66 @@ components:
             $ref: '#/components/schemas/Incident'
         nextToken:
           type: string
+    ReportStatus:
+      type: string
+      enum:
+        - QUEUED
+        - RUNNING
+        - FAILED
+        - UPLOAD_PENDING
+        - COMPLETED
+    ReportType:
+      type: string
+      enum:
+        - TEMPLATE
+        - QUERY
+        - CUSTOM
+    Report:
+      type: object
+      description: Represents a Report
+      additionalProperties: false
+      required:
+        - id
+        - name
+        - status
+        - createdAt
+        - updatedAt
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        account_id:
+          type: string
+        status:
+          $ref: '#/components/schemas/ReportStatus'
+        fileId:
+          type: string
+        queryInput:
+          $ref: '#/components/schemas/QueryInput'
+        reportTemplateId:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        preSignedUrl:
+          type: string
+        type:
+          $ref: '#/components/schemas/ReportType'
+    ReportsPaginatedResponse:
+      type: object
+      description: Represents a list response for reports
+      additionalProperties: false
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Report'
+        nextToken:
+          type: string
     BaseSuccessResponse:
       type: object
       additionalProperties: false
@@ -7840,6 +7917,86 @@ components:
         - CREDITS
         - PAYMENT
         - WALLET
+    QueryColumn:
+      type: object
+      required:
+        - columnName
+      properties:
+        dataSource:
+          type: string
+        columnName:
+          type: string
+        alias:
+          type: string
+        functions:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryFunction'
+        aggregator:
+          type: string
+    QueryFilter:
+      type: object
+      required:
+        - column
+        - operator
+        - args
+      properties:
+        column:
+          $ref: '#/components/schemas/QueryColumn'
+        operator:
+          type: string
+        args:
+          type: array
+          items:
+            type: string
+    QueryFunction:
+      type: object
+      required:
+        - name
+        - args
+      properties:
+        name:
+          type: string
+        args:
+          type: array
+          items:
+            type: string
+    QueryInput:
+      type: object
+      required:
+        - selects
+        - baseDataSource
+        - limit
+        - sort
+      properties:
+        selects:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryColumn'
+        queryFilters:
+          type: array
+          items:
+            $ref: '#/components/schemas/QueryFilter'
+        baseDataSource:
+          type: string
+        sort:
+          type: array
+          items:
+            type: object
+            required:
+              - column
+              - sortOrder
+            properties:
+              column:
+                $ref: '#/components/schemas/QueryColumn'
+              sortOrder:
+                type: string
+        seekValues:
+          type: array
+          items:
+            type: string
+        limit:
+          type: integer
     RatePlan:
       type: object
       description: Contains all rate related configurations
@@ -8618,6 +8775,10 @@ components:
               revenueInvoiceCurrency:
                 type: number
         statusBeforeReverting:
+          type: string
+        baseCurrency:
+          type: string
+        invoiceCurrency:
           type: string
     EnrichedField:
       readOnly: true
@@ -9906,6 +10067,8 @@ components:
           type: number
         value:
           type: number
+        billableId:
+          type: string
     InvoiceDetails:
       type: object
       additionalProperties: false
@@ -10549,6 +10712,15 @@ components:
           examples:
             IncidentsPaginatedResponse:
               $ref: '#/components/examples/IncidentsPaginatedResponse'
+    ReportsPaginatedResponse:
+      description: Response for List Report requests
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ReportsPaginatedResponse'
+          examples:
+            ReportsPaginatedResponse:
+              $ref: '#/components/examples/ReportsPaginatedResponse'
     InvoiceResponse:
       description: Response for Get invoice requests
       content:
@@ -11705,6 +11877,50 @@ components:
             status: ACTIVE
             createdAt: '2020-01-01T00:00:00Z'
             updatedAt: '2020-01-01T00:00:00Z'
+        nextToken: eyJsYXN0SXRlbUlkIjogInN0cmluZyIsICJwYWdlU2l6ZSI6IDEwMCwgInNvcnRPcmRlciI6ICJhc2MifQ==
+    ReportsPaginatedResponse:
+      value:
+        data:
+          - id: report.23Xx0Jkc2DM.FgysO
+            name: acme-2024-09-18.csv
+            status: COMPLETED
+            createdAt: '2024-09-18T01:30:08.216867Z'
+            updatedAt: '2024-09-18T01:30:08.350259Z'
+            accountId: null
+            fileId: file.23Xx0JkTljo.4JN5B
+            queryInput: null
+            reportTemplateId: null
+            preSignedUrl: null
+            type: CUSTOM
+          - id: report.231kfXmrPq7.YJkpy
+            name: Demo Report
+            status: COMPLETED
+            createdAt: '2024-06-28T16:38:05.517189Z'
+            updatedAt: '2024-06-28T16:38:20.533519Z'
+            accountId: null
+            fileId: file.231kfo14hqu.7ejfb
+            queryInput:
+              selects:
+                - columnName: name
+                  dataSource: null
+                  alias: ' cus1-account'
+                  functions: null
+                  aggregator: null
+              baseDataSource: customers
+              sort:
+                - column:
+                    columnName: name
+                    dataSource: null
+                    alias: ' cus1-account'
+                    functions: []
+                    aggregator: null
+                  sortOrder: ASC
+              limit: 1000,
+              queryFilters: null
+              seekValues: null
+            reportTemplateId: report_template.231kfPGCpoQ.SSeyY
+            preSignedUrl: null
+            type: TEMPLATE
         nextToken: eyJsYXN0SXRlbUlkIjogInN0cmluZyIsICJwYWdlU2l6ZSI6IDEwMCwgInNvcnRPcmRlciI6ICJhc2MifQ==
     AddAccountAliasesRequest:
       value:
