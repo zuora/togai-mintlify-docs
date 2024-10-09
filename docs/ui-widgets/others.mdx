@@ -26,7 +26,7 @@ TogaiWidget.init(token,theme,env,'pt-BR',ptBRTranslation)
 
 The current stable React version 18.x.x [doesnt have complete support](https://custom-elements-everywhere.com/#react) for web components, though its been fixed in the upcoming major release.
 
-So to work around this, props are combined into a single object and passed as stringified json through special stringify function exported from the package.
+So to work around this, props are combined into a single object and passed as stringified json through special stringify function exported from the package irrespective of the framework used.
 
 ```javascript
 import { jsonStringify } from "togai-ui-widgets/dist/packages/utils";

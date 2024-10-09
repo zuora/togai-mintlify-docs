@@ -42,8 +42,9 @@ Sum of all rate cards(Before credits): <revenue>.rate_card_total
 
 You can use the below logical and mathematical operators on the above variables while creating a pricing rule condition/computation:
 
-```javascript
-Supported literals: 
+```js
+
+Supported Literals:
 
 Boolean Literals 		        true, false
 String Literals     		    "string1", "string2", 
@@ -57,22 +58,24 @@ Variables                       var1,var2,var3 etc.
 
 Mathematical Operations:
 
-Comparison 		                 var1 > var2, var1 < var2, var1 <= var2, var1 === var2, var1 !== var2
-Arithmetic                  	 var1 + var2, var1 * var2, var1 - var2, var1 / var2, var1 % var2
+Comparison 		                 exp1 > exp2, exp1 < exp2, exp1 <= exp2, exp1 === exp2, exp1 !== exp2
+Arithmetic                  	 exp1 + exp2, exp1 * exp2, exp1 - exp2, exp1 / exp2, exp1 % exp2
 Unary		                     !cond, !!cond, -var, +var
-Conditional                      var1 && var2, var1 || var2, condition ? var1 : var2
-If Statements	                 if (conditionA) { var1 } else if (conditionB) { var2 } else { var3 }
-Maximum 		                 max(var1, var2, var3)
-Minimum                      	 min(var1, var2, var3)
-
+Conditional                      exp1 && exp2, exp1 || exp2, condition ? exp1 : exp2
+If Statements	                 if (conditionA) { exp1 } else if (conditionB) { exp2 } else { exp3 }
+Maximum 		                 max(exp1, exp2, exp3)
+Minimum                      	 min(exp1, exp2, exp3)
+In (if second arg is array)      exp1 in [exp2,exp3] 
+In (if second arg is string)     string in superString
 
 String Operations: 
 
 Concatenation		            cat("a", "b","c") → "abc"
 Substring                       substr("abcd", 1, 2) → "bc"
+In                              "abc" in "abcd" -> true
 
 
-Grouping : 
+Grouping: 
 
 Parentheses		                (1 + 2) * 3 → 9
 
@@ -80,6 +83,7 @@ Parentheses		                (1 + 2) * 3 → 9
 Array Operations:
 
 Spread                         [1, 2, ...var1]
+In                              var1 in [100,200,300] -> true/false
 ```
 
 ## Example 1: Payments company volume based discount
