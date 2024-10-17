@@ -47,8 +47,6 @@ tags:
     description: Report level calls
   - name: ReportTemplates
     description: Report Template level calls
-  - name: Dashboards
-    description: Dashboard level calls
   - name: Customer Portal
     description: Portal level calls
   - name: Alerts
@@ -1130,6 +1128,7 @@ paths:
       operationId: getUsageMeter
       parameters:
         - $ref: '#/components/parameters/usage_meter_id'
+        - $ref: '#/components/parameters/includeSchema'
       responses:
         '200':
           $ref: '#/components/responses/UsageMeterResponse'
@@ -2017,6 +2016,7 @@ paths:
       operationId: getDownloadUrl
       parameters:
         - $ref: '#/components/parameters/file_id'
+        - $ref: '#/components/parameters/expiry_in_sec'
       responses:
         '200':
           $ref: '#/components/responses/FileDownloadUrlResponse'
@@ -4298,33 +4298,45 @@ components:
           title: action
           $ref: '#/components/schemas/PricingRuleAction'
     UpdatePricePlanRequest:
-      description: Request to update a price plan
+      allOf:
+        - $ref: '#/components/schemas/FinalizePricePlanRequest'
+        - description: Request to update a price plan
+          type: object
+          additionalProperties: false
+          properties:
+            description:
+              description: Description of price plan
+              type: string
+              maxLength: 255
+            pricePlanDetails:
+              $ref: '#/components/schemas/CreatePricePlanDetailsOverride'
+            pricingRules:
+              type: array
+              items:
+                $ref: '#/components/schemas/CreatePricingRule'
+    MigrationMode:
+      type: string
+      enum:
+        - IMMEDIATE
+        - IMMEDIATE_IGNORE_OVERRIDE
+        - NEXT_CYCLE
+        - NEXT_CYCLE_IGNORE_OVERRIDE
+        - NONE
+        - START_OF_CURRENT_CYCLE
+    VersionsToMigrate:
+      type: string
+      enum:
+        - LATEST_VERSION
+        - ALL_VERSION
+    FinalizePricePlanRequest:
+      description: Request to finalize a price plan version
       type: object
       additionalProperties: false
       properties:
-        description:
-          description: Description of price plan
-          type: string
-          maxLength: 255
-        pricePlanDetails:
-          $ref: '#/components/schemas/CreatePricePlanDetailsOverride'
         migrationMode:
-          type: string
-          enum:
-            - IMMEDIATE
-            - IMMEDIATE_IGNORE_OVERRIDE
-            - NEXT_CYCLE
-            - NEXT_CYCLE_IGNORE_OVERRIDE
-            - NONE
+          $ref: '#/components/schemas/MigrationMode'
         versionsToMigrate:
-          type: string
-          enum:
-            - LATEST_VERSION
-            - ALL_VERSION
-        pricingRules:
-          type: array
-          items:
-            $ref: '#/components/schemas/CreatePricingRule'
+          $ref: '#/components/schemas/VersionsToMigrate'
     ActivatePricePlanRequest:
       description: Request to activate currencies of a price plan
       type: object
@@ -4966,6 +4978,7 @@ components:
             - IMMEDIATE_IGNORE_OVERRIDE
             - NEXT_CYCLE
             - NEXT_CYCLE_IGNORE_OVERRIDE
+            - START_OF_CURRENT_CYCLE
         retainStartOffsets:
           type: boolean
           description: |
@@ -6498,6 +6511,8 @@ components:
           maxItems: 1
           items:
             $ref: '#/components/schemas/Computation'
+        eventSchema:
+          $ref: '#/components/schemas/EventSchema'
         createdAt:
           type: string
           format: date-time
@@ -10054,8 +10069,6 @@ components:
         Custom line item. Either `value` or `quantity` + `valuePerQuantity` is required.
         In case `quantity` and `valuePerQuantity` are provided, `value` is computed as (`quantity` X `valuePerQuantity`)
       additionalProperties: false
-      required:
-        - description
       properties:
         id:
           type: string
@@ -11071,6 +11084,21 @@ components:
       schema:
         type: string
         example: alert.20aUyEZSuYq.SoGbS
+    expiry_in_sec:
+      in: query
+      name: expiry
+      required: false
+      schema:
+        type: integer
+        format: int32
+        example: 300
+    includeSchema:
+      in: query
+      name: includeSchema
+      required: false
+      schema:
+        type: boolean
+        example: true
     account_id:
       in: path
       description: account_id corresponding to an account
