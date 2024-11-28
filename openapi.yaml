@@ -1395,57 +1395,6 @@ paths:
           $ref: '#/components/responses/ErrorResponse'
         default:
           $ref: '#/components/responses/ErrorResponse'
-  /price_plans/{price_plan_id}/currencies:
-    post:
-      tags:
-        - Price Plans
-      summary: Add currencies to a price plan
-      description: Add currencies to a price plan
-      operationId: addCurrencyToPricePlan
-      parameters:
-        - $ref: '#/components/parameters/price_plan_id'
-      requestBody:
-        $ref: '#/components/requestBodies/AddCurrencyToPricePlanRequest'
-      responses:
-        '200':
-          $ref: '#/components/responses/PricePlanResponse'
-        '400':
-          $ref: '#/components/responses/ErrorResponse'
-        '401':
-          $ref: '#/components/responses/ErrorResponse'
-        '403':
-          $ref: '#/components/responses/ErrorResponse'
-        '404':
-          $ref: '#/components/responses/ErrorResponse'
-        '429':
-          $ref: '#/components/responses/ErrorResponse'
-        default:
-          $ref: '#/components/responses/ErrorResponse'
-  /price_plans/{price_plan_id}/currencies/{currency_id}:
-    delete:
-      tags:
-        - Price Plans
-      summary: Remove a draft currency from a price plan
-      description: Remove a draft currency from a price plan
-      operationId: removeCurrencyFromPricePlan
-      parameters:
-        - $ref: '#/components/parameters/price_plan_id'
-        - $ref: '#/components/parameters/currency_id'
-      responses:
-        '200':
-          $ref: '#/components/responses/PricePlanResponse'
-        '400':
-          $ref: '#/components/responses/ErrorResponse'
-        '401':
-          $ref: '#/components/responses/ErrorResponse'
-        '403':
-          $ref: '#/components/responses/ErrorResponse'
-        '404':
-          $ref: '#/components/responses/ErrorResponse'
-        '429':
-          $ref: '#/components/responses/ErrorResponse'
-        default:
-          $ref: '#/components/responses/ErrorResponse'
   /price_plans/{price_plan_id}/pricing_schedules/{pricing_schedule_id}/pricing_rules:
     get:
       tags:
@@ -2231,6 +2180,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/next_token'
         - $ref: '#/components/parameters/page_size'
+        - $ref: '#/components/parameters/fetch_for'
       responses:
         '200':
           $ref: '#/components/responses/ReportsPaginatedResponse'
@@ -2248,6 +2198,371 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/TokenResponse'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '403':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+        '429':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /v2/price_plans:
+    post:
+      tags:
+        - PricePlanV2
+      summary: Create a price plan
+      description: Create a price plan
+      operationId: createPricePlanV2
+      requestBody:
+        $ref: '#/components/requestBodies/CreatePricePlanV2Request'
+      responses:
+        '200':
+          $ref: '#/components/responses/PricePlanV2'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+    get:
+      tags:
+        - PricePlanV2
+      summary: List price plans
+      description: List price plans
+      operationId: listPricePlansV2
+      parameters:
+        - $ref: '#/components/parameters/next_token'
+        - $ref: '#/components/parameters/page_size'
+      responses:
+        '200':
+          $ref: '#/components/responses/PricePlanV2PaginatedResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /v2/price_plans/{price_plan_id}:
+    get:
+      tags:
+        - PricePlanV2
+      summary: Get a price plan
+      description: Get a price plan
+      operationId: getPricePlanV2
+      parameters:
+        - $ref: '#/components/parameters/price_plan_id'
+        - $ref: '#/components/parameters/price_plan_version'
+      responses:
+        '200':
+          $ref: '#/components/responses/PricePlanV2'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+    patch:
+      tags:
+        - PricePlanV2
+      summary: Update a price plan
+      description: Update a price plan
+      operationId: updatePricePlanV2
+      parameters:
+        - $ref: '#/components/parameters/price_plan_id'
+      requestBody:
+        $ref: '#/components/requestBodies/UpdatePricePlanV2Request'
+      responses:
+        '200':
+          $ref: '#/components/responses/PricePlanV2'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /v2/price_plans/{price_plan_id}/discard:
+    delete:
+      tags:
+        - PricePlanV2
+      summary: Discard a price plan
+      description: Discard a price plan
+      operationId: discardPricePlan
+      parameters:
+        - $ref: '#/components/parameters/price_plan_id'
+      responses:
+        '200':
+          $ref: '#/components/responses/BaseSuccessResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /v2/price_plans/{price_plan_id}/finalize:
+    post:
+      tags:
+        - PricePlanV2
+      summary: Finalize a price plan
+      description: Finalize a price plan
+      operationId: finalizePricePlan
+      parameters:
+        - $ref: '#/components/parameters/price_plan_id'
+      requestBody:
+        $ref: '#/components/requestBodies/FinalizePricePlanRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/BaseSuccessResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /v2/price_plans/{price_plan_id}/rate_cards:
+    post:
+      tags:
+        - PricePlanV2
+      summary: Bulk rate card operations of a price plan
+      description: Bulk rate card operations of a price plan
+      operationId: bulkPricePlanRateCardOperations
+      parameters:
+        - $ref: '#/components/parameters/price_plan_id'
+      requestBody:
+        $ref: '#/components/requestBodies/BulkRateCardOperationsRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/BulkRateCardOperationsResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+    get:
+      tags:
+        - PricePlanV2
+      summary: List rate cards of a price plan
+      description: List rate cards of a price plan
+      operationId: listPricePlanRateCards
+      parameters:
+        - $ref: '#/components/parameters/price_plan_id'
+        - $ref: '#/components/parameters/next_token'
+        - $ref: '#/components/parameters/page_size'
+      responses:
+        '200':
+          $ref: '#/components/responses/RateCardPaginatedResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /v2/price_plans/{price_plan_id}/pricing_rules:
+    put:
+      tags:
+        - PricePlanV2
+      summary: Update pricing rules of a price plan
+      description: Update pricing rules of a price plan
+      operationId: updatePricePlanPricingRules
+      parameters:
+        - $ref: '#/components/parameters/price_plan_id'
+      requestBody:
+        $ref: '#/components/requestBodies/UpdatePricingRulesRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/PricingRulesPaginatedResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+    get:
+      tags:
+        - PricePlanV2
+      summary: List pricing rules of a price plan
+      description: List pricing rules of a price plan
+      operationId: listPricePlanPricingRules
+      parameters:
+        - $ref: '#/components/parameters/price_plan_id'
+        - $ref: '#/components/parameters/price_plan_version'
+      responses:
+        '200':
+          $ref: '#/components/responses/PricingRulesPaginatedResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /v2/price_plans/{price_plan_id}/errors:
+    get:
+      tags:
+        - PricePlanV2
+      summary: Get list of errors of a price plan
+      description: Get list of errors of a price plan
+      operationId: listPricePlanErrors
+      parameters:
+        - $ref: '#/components/parameters/price_plan_id'
+      responses:
+        '200':
+          $ref: '#/components/responses/ValidatedEntityErrorsPaginatedResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /v2/price_plans/{price_plan_id}/versions:
+    get:
+      tags:
+        - PricePlanV2
+      summary: List price plan versions
+      description: List price plan versions
+      operationId: listPricePlanVersions
+      parameters:
+        - $ref: '#/components/parameters/price_plan_id'
+        - $ref: '#/components/parameters/next_token'
+        - $ref: '#/components/parameters/page_size'
+      responses:
+        '200':
+          $ref: '#/components/responses/PricePlanV2PaginatedResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /v2/price_plans/migration:
+    post:
+      tags:
+        - PricePlanV2
+      summary: Create a price plan v2 migration
+      description: |
+        Migrates accounts across price plans. This is an asynchronous process functioning on top of Togai's Jobs 
+        framework. Status of the created migrations can be obtained using the [Jobs APIs](https://docs.togai.com/api-reference/jobs/get-the-status-of-a-job)
+      operationId: pricePlanMigrationV2
+      requestBody:
+        $ref: '#/components/requestBodies/CreatePricePlanMigrationRequest'
+      responses:
+        '201':
+          $ref: '#/components/responses/BaseSuccessResponse'
+        '400':
+          $ref: '#/components/responses/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/ErrorResponse'
+        '403':
+          $ref: '#/components/responses/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/ErrorResponse'
+        '429':
+          $ref: '#/components/responses/ErrorResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /v2/schedules/{schedule_id}/rate_cards:
+    post:
+      tags:
+        - Schedules
+      summary: Bulk rate card operations on a schedule
+      description: Bulk rate card operations on a schedule
+      operationId: bulkRateCardOperationsOnSchedule
+      parameters:
+        - $ref: '#/components/parameters/schedule_id'
+      requestBody:
+        $ref: '#/components/requestBodies/BulkRateCardOperationsRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/BulkRateCardOperationsResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+    get:
+      tags:
+        - Schedules
+      summary: List rate cards
+      description: List rate cards
+      operationId: listScheduleRateCards
+      parameters:
+        - $ref: '#/components/parameters/schedule_id'
+        - $ref: '#/components/parameters/next_token'
+        - $ref: '#/components/parameters/page_size'
+        - $ref: '#/components/parameters/rate_card_mode'
+      responses:
+        '200':
+          $ref: '#/components/responses/RateCardPaginatedResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /v2/accounts/{account_id}/edit_schedules:
+    post:
+      tags:
+        - Schedules
+      summary: Bulk edit schedules of an account
+      description: Bulk edit schedules of an account
+      operationId: bulkEditSchedules
+      parameters:
+        - $ref: '#/components/parameters/account_id'
+        - $ref: '#/components/parameters/discard'
+      requestBody:
+        $ref: '#/components/requestBodies/EditAccountScheduleRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/UpdatePricingScheduleResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /v2/accounts/{account_id}/schedules:
+    get:
+      tags:
+        - Schedules
+      summary: List pricing schedules of an account
+      description: List pricing schedules of an account
+      operationId: listaccountSchedules
+      parameters:
+        - $ref: '#/components/parameters/account_id'
+        - $ref: '#/components/parameters/rate_card_mode'
+        - $ref: '#/components/parameters/next_token'
+        - $ref: '#/components/parameters/page_size'
+      responses:
+        '200':
+          $ref: '#/components/responses/SchedulesPaginatedResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /v2/schedules/{schedule_id}/errors:
+    get:
+      tags:
+        - Schedules
+      summary: Get list of errors of a acc schedule
+      description: Get list of errors of a acc schedule
+      operationId: listScheduleErrors
+      parameters:
+        - $ref: '#/components/parameters/schedule_id'
+      responses:
+        '200':
+          $ref: '#/components/responses/ValidatedEntityErrorsPaginatedResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /v2/accounts/{account_id}/discard_schedules:
+    delete:
+      tags:
+        - Schedules
+      summary: Discard schedules of an account
+      description: Discard schedules of an account
+      operationId: discardAccountSchedules
+      parameters:
+        - $ref: '#/components/parameters/account_id'
+      responses:
+        '200':
+          $ref: '#/components/responses/BaseSuccessResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /v2/accounts/{account_id}/finalize_schedules:
+    post:
+      tags:
+        - Schedules
+      summary: Finalize schedules of an account
+      description: Finalize schedules of an account
+      operationId: finalizeAccountSchedules
+      parameters:
+        - $ref: '#/components/parameters/account_id'
+      requestBody:
+        $ref: '#/components/requestBodies/FinalizeAccountSchedules'
+      responses:
+        '200':
+          $ref: '#/components/responses/SchedulesPaginatedResponse'
+  /v2/schedules/{schedule_id}/pricing_rules:
+    put:
+      tags:
+        - Schedules
+      summary: Update pricing rules of a account schedule
+      description: Update pricing rules of a account schedule
+      operationId: updatePricingRules
+      parameters:
+        - $ref: '#/components/parameters/schedule_id'
+      requestBody:
+        $ref: '#/components/requestBodies/UpdatePricingRulesRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/PricingRulesPaginatedResponse'
+    get:
+      tags:
+        - Schedules
+      summary: List pricing rules of a account schedule
+      description: List pricing rules of a account schedule
+      operationId: listPricingRules
+      parameters:
+        - $ref: '#/components/parameters/schedule_id'
+        - $ref: '#/components/parameters/rate_card_mode'
+      responses:
+        '200':
+          $ref: '#/components/responses/PricingRulesPaginatedResponse'
+        default:
+          $ref: '#/components/responses/ErrorResponse'
+  /v2/revenue_calculator:
+    post:
+      tags:
+        - Price Experimentation
+      summary: Calculate and return the revenue for a existing or new price plan v2
+      description: Calculate and return the revenue for a existing or new price plan v2
+      operationId: calculateRevenueV2
+      requestBody:
+        $ref: '#/components/requestBodies/CalculateRevenueRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/CalculateRevenueResponseV2'
         '400':
           $ref: '#/components/responses/ErrorResponse'
         '401':
@@ -3817,6 +4132,8 @@ components:
           type: string
           maxLength: 320
           example: admin@example.com
+        billingInformation:
+          $ref: '#/components/schemas/AccountsBillingInformation'
         settings:
           type: array
           maxItems: 10
@@ -3893,6 +4210,8 @@ components:
           type: string
           maxLength: 320
           example: admin@example.com
+        billingInformation:
+          $ref: '#/components/schemas/AccountsBillingInformation'
         address:
           $ref: '#/components/schemas/Address'
         metadata:
@@ -4207,6 +4526,167 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/CreatePricingRule'
+    BulkRateCardOperationsRequest:
+      description: Bulk rate card operations for price plan
+      type: object
+      required:
+        - operations
+      properties:
+        operations:
+          type: array
+          items:
+            $ref: '#/components/schemas/RateCardOperation'
+    BulkRateCardOperationsResponse:
+      description: Bulk rate card operations response
+      type: object
+      required:
+        - rateCards
+      properties:
+        rateCards:
+          type: array
+          items:
+            $ref: '#/components/schemas/RateCard'
+    RateCardOperation:
+      description: Rate card operation
+      type: object
+      required:
+        - actionType
+        - rateCardName
+      properties:
+        actionType:
+          description: Operation type
+          type: string
+          enum:
+            - CREATE
+            - UPDATE
+            - DELETE
+        rateCardName:
+          type: string
+          description: Required for UPDATE and DELETE operations
+          maxLength: 50
+        rateCard:
+          $ref: '#/components/schemas/RateCardData'
+    CreatePricePlanV2Request:
+      description: Request to create a price plan
+      type: object
+      additionalProperties: false
+      required:
+        - name
+        - type
+        - supportedCurrencies
+      properties:
+        name:
+          type: string
+          description: Name of the price plan
+          maxLength: 50
+        description:
+          description: Description of price plan
+          type: string
+          maxLength: 255
+        type:
+          $ref: '#/components/schemas/PricePlanType'
+        pricingCycleConfig:
+          $ref: '#/components/schemas/PricingCycleConfig'
+        supportedCurrencies:
+          description: List of currencies supported by the price plan
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+        deferredRevenue:
+          description: |
+            This option can be enabled while creating a price plan to opt for deferred revenue finalization.
+            i.e, Togai will assume that the price plan may change any time during the pricing cycle and 
+            thereby does not compute the revenue in near-real time. 
+            This gives the flexibility of editing rate cards in price plan from beginning of the pricing cycle.
+            Enabling this mode comes with the following limitations.
+            1. Following rate cards are not supported under a `deferredRevenue` plan
+                * creditGrantRateCards,
+                * billingEntitlementRateCards,
+                * entitlementOverageRateCards,
+                * IN_ADVANCE fixedFeeRateCards,
+                * IN_ADVANCE licenseRateCards
+            2. Metrics API return revenue metrics only after the grace period of the account's pricing cycle 
+            (i.e, only once the invoice becomes DUE)
+          type: boolean
+        allow_ongoing_cycle_updates:
+          description: |
+            Allow changes to price plan from the beginning of the ongoing cycle.
+          type: boolean
+    UpdatePricePlanV2Request:
+      description: Request to update a price plan
+      type: object
+      additionalProperties: false
+      properties:
+        description:
+          description: Description of price plan
+          type: string
+          maxLength: 255
+        pricingCycleConfig:
+          $ref: '#/components/schemas/PricingCycleConfig'
+        supportedCurrencies:
+          description: List of currencies supported by the price plan
+          type: array
+          uniqueItems: true
+          items:
+            type: string
+    PricePlanV2:
+      allOf:
+        - $ref: '#/components/schemas/CreatePricePlanV2Request'
+        - type: object
+          required:
+            - id
+            - referenceId
+            - version
+            - status
+            - createdAt
+            - updatedAt
+          properties:
+            id:
+              type: string
+              maxLength: 50
+            referenceId:
+              type: string
+              maxLength: 50
+            version:
+              type: integer
+            status:
+              type: string
+              enum:
+                - DRAFT
+                - ACTIVE
+            createdAt:
+              type: string
+              format: date-time
+            updatedAt:
+              type: string
+              format: date-time
+    PricePlanV2PaginatedResponse:
+      description: Paginated response for price plan
+      type: object
+      additionalProperties: false
+      required:
+        - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/PricePlanV2'
+        nextToken:
+          type: string
+    RateCardPaginatedResponse:
+      description: Paginated response for rate card
+      type: object
+      additionalProperties: false
+      required:
+        - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/RateCard'
+        nextToken:
+          type: string
     CreatePricePlanDetails:
       type: object
       additionalProperties: false
@@ -4214,7 +4694,6 @@ components:
         - supportedCurrencies
       properties:
         pricingCycleConfig:
-          description: Configuration for pricing cycle
           $ref: '#/components/schemas/PricingCycleConfig'
         supportedCurrencies:
           description: List of currencies supported by the price plan
@@ -4294,8 +4773,6 @@ components:
           description: JSON logic to be computed
           type: string
         action:
-          description: JSON logic to be computed
-          title: action
           $ref: '#/components/schemas/PricingRuleAction'
     UpdatePricePlanRequest:
       allOf:
@@ -4714,6 +5191,22 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/PreAction'
+    FinalizeAccountSchedules:
+      description: Request to finalize account schedules
+      type: object
+      additionalProperties: false
+      properties:
+        mergeSchedules:
+          type: boolean
+          description: |
+            If this flag is true, the schedules will be merged with the existing schedules of the account if possible.
+            If this flag is false, the existing schedules will be replaced with the new schedules.
+            Default value is false
+        preActions:
+          description: Pre actions to be performed before association or disassociation
+          type: array
+          items:
+            $ref: '#/components/schemas/PreAction'
     PreAction:
       type: object
       title: PreAction
@@ -4786,7 +5279,89 @@ components:
                 pricing cycle configuration of the new price plan that the account needs to migrate to.
               - Ongoing plan (1st Oct to 30th Oct) - {dayOffset: 1, monthOffset: NIL}
                 New association (1st Nov to 30th Nov) of different price plan with retainStartOffsets option true will
-                throw a `400 BadRequest` as no existing price plan configuration found on date of association 
+                throw a `400 BadRequest` as no existing price plan configuration found on date of association
+    EditAccountScheduleRequest:
+      description: Request to dis/associate one or more schedules to an account
+      type: object
+      additionalProperties: false
+      required:
+        - edits
+      properties:
+        edits:
+          type: array
+          minItems: 1
+          maxItems: 10
+          items:
+            $ref: '#/components/schemas/UpdateAccountScheduleV2Request'
+    UpdateAccountScheduleV2Request:
+      description: Request to dis/associate one or more schedules to an account
+      type: object
+      additionalProperties: false
+      required:
+        - effectiveFrom
+        - effectiveUntil
+      properties:
+        mode:
+          type: string
+          enum:
+            - ASSOCIATE
+            - DISASSOCIATE
+          description: Mode of request to create dis/association
+        effectiveFrom:
+          type: string
+          format: date
+          description: |
+            Date of effectiveness of the association. The date is expected in YYYY-MM-DD format
+            - Editing of a BILLING plan with deferredRevenue can be achieved with 
+              effectiveFrom as start date of current cycle or using `retainStartOffset` option.
+        effectiveUntil:
+          type: string
+          format: date
+          description: |
+            Date until which the association must be effective. The date is expected in YYYY-MM-DD format
+        associationConfig:
+          type: object
+          additionalProperties: false
+          title: AssociationConfig
+          properties:
+            pricePlanId:
+              type: string
+              description: Id of the price plan if association request
+            scheduleId:
+              type: string
+              description: If provided, rate cards and pricing rules will copied from this schedule
+            pricingCycleConfigOverride:
+              $ref: '#/components/schemas/PricingCycleConfig'
+            retainStartOffsets:
+              type: boolean
+              description: |
+                If this flag is true, current pricing cycle of the account on the date of association will continue rather 
+                than the configurations of the newly associated price plan. Pricing cycle overrides specified  using 
+                `pricePlanDetailsOverride` will take precedence over the pricing cycle configurations of 
+                the new price plan that the account needs to migrate to. PricingCycleInterval of the existing plan and 
+                the new plan must be same for this to work. We'll return a `400 BadRequest` otherwise.
+                Examples:
+                  - Ongoing plan (1st Oct to 30th Oct) - {dayOffset: 1, monthOffset: NIL}
+                    New association (15th Oct to 15th Nov) of different price plan with retainStartOffsets option true 
+                    will use the same pricing cycle configuration {dayOffset: 1, monthOffset: NIL} rather than using the
+                    pricing cycle configuration of the new price plan that the account needs to migrate to.
+                  - Ongoing plan (1st Oct to 30th Oct) - {dayOffset: 1, monthOffset: NIL}
+                    New association (1st Nov to 30th Nov) of different price plan with retainStartOffsets option true will
+                    throw a `400 BadRequest` as no existing price plan configuration found on date of association
+        mergeSchedules:
+          type: boolean
+          description: |
+            If this flag is true, the schedules will be merged with the existing schedules of the account if possible.
+            If this flag is false, the existing schedules will be replaced with the new schedules.
+            Default value is false
+    UpdatePricingRulesRequest:
+      type: object
+      additionalProperties: false
+      properties:
+        pricingRules:
+          type: array
+          items:
+            $ref: '#/components/schemas/CreatePricingRule'
     EditPricingScheduleRequest:
       description: Request to dis/associate one or more schedules to an account
       type: object
@@ -4800,142 +5375,6 @@ components:
           maxItems: 10
           items:
             $ref: '#/components/schemas/UpdatePricingScheduleRequest'
-    AddCurrencyToPricePlanRequest:
-      description: Request to adding currency to a price plan
-      type: object
-      additionalProperties: false
-      required:
-        - currency
-      properties:
-        currency:
-          description: Currency to be added
-          type: string
-        usageRates:
-          description: List of usage rates
-          type: array
-          items:
-            title: UsageRate
-            type: object
-            required:
-              - usageMeterId
-              - slabRates
-            properties:
-              usageMeterId:
-                description: The usage meter will be associated with the rate card to transform the usage value to billable value
-                example: um.1zYnCiM9Bpg.1zYn
-                type: string
-              slabRates:
-                description: List of slab rates
-                type: array
-                items:
-                  $ref: '#/components/schemas/SlabRate'
-              rateConfig:
-                type: object
-                additionalProperties:
-                  type: string
-        fixedFeeRates:
-          description: Rates for fixed fee rate cards
-          type: array
-          items:
-            title: FixedFeeRate
-            type: object
-            required:
-              - id
-              - rate
-            properties:
-              id:
-                type: string
-              rate:
-                type: number
-        licenseRates:
-          description: Rates for license rate cards
-          type: array
-          items:
-            title: LicenseRate
-            type: object
-            required:
-              - id
-              - slabRates
-            properties:
-              id:
-                type: string
-              slabRates:
-                description: List of slab rates
-                type: array
-                items:
-                  $ref: '#/components/schemas/SlabRate'
-              rateConfig:
-                type: object
-                additionalProperties:
-                  type: string
-        billingEntitlementRates:
-          description: Rates for billing entitlement rate cards
-          type: array
-          items:
-            title: BillingEntitlementRate
-            type: object
-            required:
-              - id
-              - slabRates
-            properties:
-              id:
-                type: string
-              slabRates:
-                description: List of slab rates
-                type: array
-                items:
-                  $ref: '#/components/schemas/SlabRate'
-              rateConfig:
-                type: object
-                additionalProperties:
-                  type: string
-        minimumCommitmentRate:
-          description: Rates for minimum commitment.
-          type: number
-        creditGrantRates:
-          description: Rates for credit grant rate card
-          type: array
-          items:
-            title: creditGrantRates
-            type: object
-            required:
-              - id
-              - slabDetails
-              - creditAmount
-            properties:
-              id:
-                type: string
-              slabDetails:
-                type: array
-                items:
-                  $ref: '#/components/schemas/SlabDetail'
-              creditAmount:
-                type: number
-              rateConfig:
-                type: object
-                additionalProperties:
-                  type: string
-        entitlementOverageRates:
-          description: Rates for entitlement overage rate cards
-          type: array
-          items:
-            title: EntitlementOverageRates
-            type: object
-            required:
-              - id
-              - slabRates
-            properties:
-              id:
-                type: string
-              slabRates:
-                description: List of slab rates
-                type: array
-                items:
-                  $ref: '#/components/schemas/SlabRate'
-              rateConfig:
-                type: object
-                additionalProperties:
-                  type: string
     CreatePricePlanMigrationRequest:
       description: Request to create price plan migration request
       allOf:
@@ -4995,6 +5434,10 @@ components:
               - Ongoing plan (1st Oct to 30th Oct) - {dayOffset: 1, monthOffset: NIL}
                 New association (1st Nov to 30th Nov) of different price plan with retainStartOffsets option true will
                 throw a `400 BadRequest` as no existing price plan configuration found on date of association
+        isPricePlanV2Migration:
+          type: boolean
+          description: |
+            If this flag is true, the migration will be done for price plan v2. Default value is false
     UpdateAddOnRequest:
       description: Request to update an addon
       type: object
@@ -5751,6 +6194,16 @@ components:
           type: string
         context:
           $ref: '#/components/schemas/PaginationOptions'
+    PricePlanInfo:
+      type: object
+      additionalProperties: false
+      required:
+        - name
+      properties:
+        name:
+          type: string
+        description:
+          type: string
     PricingScheduleWithPricePlanId:
       allOf:
         - $ref: '#/components/schemas/PricingSchedule'
@@ -5763,16 +6216,7 @@ components:
             pricePlanName:
               type: string
             pricePlanInfo:
-              type: object
-              title: PricePlanInfo
-              additionalProperties: false
-              required:
-                - name
-              properties:
-                name:
-                  type: string
-                description:
-                  type: string
+              $ref: '#/components/schemas/PricePlanInfo'
     PricingSchedulePaginatedResponse:
       type: object
       additionalProperties: false
@@ -5784,6 +6228,111 @@ components:
         nextToken:
           type: string
         previousToken:
+          type: string
+    SchedulesPaginatedResponse:
+      type: object
+      additionalProperties: false
+      required:
+        - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/AccountSchedule'
+        nextToken:
+          type: string
+        previousToken:
+          type: string
+    ScheduleInfo:
+      type: object
+      additionalProperties: false
+      required:
+        - supportedCurrencies
+        - pricingCycleConfig
+      properties:
+        supportedCurrencies:
+          type: array
+          items:
+            type: string
+        pricingCycleConfig:
+          $ref: '#/components/schemas/PricingCycleConfig'
+        pricingRules:
+          type: array
+          items:
+            $ref: '#/components/schemas/PricingRule'
+    AccountSchedule:
+      type: object
+      additionalProperties: false
+      required:
+        - id
+        - accountId
+        - pricePlanId
+        - pricePlanInfo
+        - version
+        - deferredRevenue
+        - startDate
+        - endDate
+        - allowOngoingCycleUpdates
+        - accountScheduleInfo
+      properties:
+        id:
+          type: string
+        accountId:
+          type: string
+        pricePlanId:
+          type: string
+        version:
+          type: integer
+        deferredRevenue:
+          type: boolean
+        pricePlanInfo:
+          $ref: '#/components/schemas/PricePlanInfo'
+        accountScheduleInfo:
+          $ref: '#/components/schemas/ScheduleInfo'
+        isOverridden:
+          description: |
+            Indicates whether the schedule is overridden. Note: A null value for this field does not imply that the schedule is not overridden.
+          type: boolean
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+        allowOngoingCycleUpdates:
+          type: boolean
+    ValidatedEntityErrorsPaginatedResponse:
+      type: object
+      additionalProperties: false
+      required:
+        - data
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidatedEntityError'
+        nextToken:
+          type: string
+    ValidatedEntityError:
+      type: object
+      additionalProperties: false
+      required:
+        - referenceId
+        - entityId
+        - entityType
+        - errorMessage
+      properties:
+        referenceId:
+          description: Reference ID of the entity, can be Schedule Id or Purchase Id
+          type: string
+        entityId:
+          description: Identifier of the entity
+          type: string
+        entityType:
+          description: Type of the entity, can be Rate card or Pricing rule
+          type: string
+        errorMessage:
+          description: Error message for the validation
           type: string
     PricingRulesPaginatedResponse:
       type: object
@@ -5862,6 +6411,90 @@ components:
                 $ref: '#/components/schemas/CreditGrantRateCard'
               entitlementOverageRateCard:
                 $ref: '#/components/schemas/EntitlementOverageRateCard'
+              usages:
+                type: object
+                additionalProperties:
+                  type: number
+              fixedFeeRevenueSummary:
+                type: object
+                title: FixedFeeRevenueSummary
+                additionalProperties: false
+                required:
+                  - revenue
+                properties:
+                  revenue:
+                    type: number
+              licenseRevenueSummary:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SlabRevenueSummary'
+              billingEntitlementRevenueSummary:
+                type: object
+                title: BillingEntitlementRevenueSummary
+                additionalProperties: false
+                required:
+                  - revenue
+                properties:
+                  revenue:
+                    type: number
+              creditGrantRevenueSummary:
+                type: object
+                title: CreditGrantRevenueSummary
+                additionalProperties: false
+                required:
+                  - revenue
+                properties:
+                  revenue:
+                    type: number
+              entitlementOverageRevenueSummary:
+                type: object
+                title: EntitlementOverageRevenueSummary
+                additionalProperties: false
+                required:
+                  - revenue
+                properties:
+                  revenue:
+                    type: number
+              slabRevenueSummaries:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SlabRevenueSummary'
+    CalculateRevenueResponseV2:
+      type: object
+      additionalProperties: false
+      required:
+        - revenueInfo
+        - currency
+      properties:
+        currency:
+          type: string
+        usageLookupRange:
+          type: object
+          title: UsageLookupRange
+          description: Start and end dates of usage lookup if usage mode is LOOKUP
+          additionalProperties: false
+          required:
+            - start
+            - end
+          properties:
+            start:
+              type: string
+              format: date-time
+            end:
+              type: string
+              format: date-time
+        revenueInfo:
+          type: array
+          items:
+            title: RevenueInfoV2
+            type: object
+            additionalProperties: false
+            required:
+              - usages
+              - rateCard
+            properties:
+              rateCard:
+                $ref: '#/components/schemas/RateCard'
               usages:
                 type: object
                 additionalProperties:
@@ -6037,6 +6670,25 @@ components:
         updatedAt:
           type: string
           format: date-time
+    AccountsBillingInformation:
+      description: Billing information of an account
+      type: object
+      additionalProperties: false
+      properties:
+        emailRecipients:
+          type: array
+          items:
+            description: |
+              Emails in this array will be added in to: in mail. Primary email will be added if left blank.
+            type: string
+            maxLength: 320
+        additionalEmailRecipients:
+          type: array
+          items:
+            description: |
+              Emails in this array will be added in cc: in mail.
+            type: string
+            maxLength: 320
     Account:
       description: Structure of an account
       type: object
@@ -6097,6 +6749,8 @@ components:
           type: string
           maxLength: 320
           example: admin@example.com
+        billingInformation:
+          $ref: '#/components/schemas/AccountsBillingInformation'
         status:
           description: Status of the account
           type: string
@@ -8012,6 +8666,97 @@ components:
             type: string
         limit:
           type: integer
+    RateCard:
+      allOf:
+        - $ref: '#/components/schemas/RateCardData'
+        - type: object
+          required:
+            - name
+            - pricePlanId
+            - referenceId
+            - referenceType
+          properties:
+            name:
+              type: string
+              maxLength: 50
+            referenceId:
+              type: string
+              maxLength: 50
+            referenceType:
+              type: string
+              maxLength: 50
+            currencies:
+              description: List of currencies supported by the rate card
+              type: array
+              uniqueItems: true
+              items:
+                type: string
+            pricePlanId:
+              description: Price plan identifier
+              type: string
+              maxLength: 50
+            accountId:
+              description: Account identifier
+              type: string
+    RateCardData:
+      description: Request to create a rate card
+      type: object
+      additionalProperties: false
+      required:
+        - billableId
+        - displayName
+        - invoiceTiming
+        - rateCardDetails
+        - type
+      properties:
+        billableId:
+          description: Billable identifier
+          type: string
+          maxLength: 50
+        type:
+          $ref: '#/components/schemas/RateCardType'
+        displayName:
+          type: string
+          description: Display name of the rate card
+          maxLength: 255
+        invoiceTiming:
+          $ref: '#/components/schemas/InvoiceTiming'
+        rateCardDetails:
+          $ref: '#/components/schemas/RateCardDetails'
+        tag:
+          type: string
+          description: Tag for rate card
+          maxLength: 50
+    RateCardDetails:
+      description: Rate card details
+      type: object
+      additionalProperties: false
+      properties:
+        fixedFeeRateCard:
+          $ref: '#/components/schemas/FixedFeeRateCard'
+        billingEntitlementRateCard:
+          $ref: '#/components/schemas/BillingEntitlementRateCard'
+        creditGrantRateCard:
+          $ref: '#/components/schemas/CreditGrantRateCard'
+        usageRateCard:
+          $ref: '#/components/schemas/UsageRateCard'
+        licenseRateCard:
+          $ref: '#/components/schemas/LicenseRateCard'
+        entitlementOverageRateCard:
+          $ref: '#/components/schemas/EntitlementOverageRateCard'
+        minimumCommitmentRateCard:
+          $ref: '#/components/schemas/MinimumCommitment'
+    RateCardType:
+      description: Rate card type
+      type: string
+      enum:
+        - MINIMUM_COMMITMENT
+        - BILLING_ENTITLEMENT
+        - CREDIT_GRANT
+        - ENTITLEMENT_OVERAGE
+        - FIXED_FEE
+        - LICENSE
+        - USAGE
     RatePlan:
       type: object
       description: Contains all rate related configurations
@@ -10515,6 +11260,12 @@ components:
           examples:
             CalculateRevenueResponse:
               $ref: '#/components/examples/CalculateRevenueResponse'
+    CalculateRevenueResponseV2:
+      description: Response payload for calculateRevenueAPI
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CalculateRevenueResponseV2'
     SettingResponse:
       description: Response for insert and update settings request
       content:
@@ -10734,6 +11485,42 @@ components:
           examples:
             ReportsPaginatedResponse:
               $ref: '#/components/examples/ReportsPaginatedResponse'
+    PricePlanV2:
+      description: Response for Create and Get price plan requests
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PricePlanV2'
+    PricePlanV2PaginatedResponse:
+      description: Response for list price plans request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/PricePlanV2PaginatedResponse'
+    BulkRateCardOperationsResponse:
+      description: Response for bulk rate card operations of a price plan
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BulkRateCardOperationsResponse'
+    RateCardPaginatedResponse:
+      description: Response for list rate cards request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/RateCardPaginatedResponse'
+    SchedulesPaginatedResponse:
+      description: Paginated response for pricing schedules
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SchedulesPaginatedResponse'
+    ValidatedEntityErrorsPaginatedResponse:
+      description: Paginated response for draft entities validations
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ValidatedEntityErrorsPaginatedResponse'
     InvoiceResponse:
       description: Response for Get invoice requests
       content:
@@ -10946,6 +11733,22 @@ components:
       schema:
         type: number
         example: 10
+    fetch_for:
+      name: fetchFor
+      in: query
+      required: false
+      description: |
+        Fetch for flag used to get the reports from:
+        1. ALL: Both the organization and accounts
+        2. ORGANIZATION: Only the organization
+        3. ACCOUNTS: Only accounts, works with account_id filter only.
+      schema:
+        type: string
+        enum:
+          - ALL
+          - ORGANIZATION
+          - ACCOUNTS
+        default: ORGANIZATION
     price_plan_id:
       in: path
       name: price_plan_id
@@ -10954,6 +11757,28 @@ components:
         type: string
         maxLength: 50
         example: pp.1zYnCiM9Bpg.lv25y
+    price_plan_version:
+      in: query
+      name: version
+      description: |
+        Optional version to get a specific version. Gets latest version if it is not provided.
+        Possible values:
+        1. LATEST - Get the latest version of the price plan, can be draft
+        2. ACTIVE - Get the latest active version of the price plan
+        3. NUMBER - Get the specific version of the price plans
+      required: false
+      schema:
+        type: string
+    rate_card_mode:
+      in: query
+      name: mode
+      required: true
+      description: |
+        Possible values:
+        1. ACTIVE - Get the active rate card
+        2. DRAFT - Get the draft rate card
+      schema:
+        type: string
     pricing_schedule_id:
       in: path
       name: pricing_schedule_id
@@ -10978,14 +11803,13 @@ components:
         type: string
         maxLength: 50
         example: addon.1zYnCiM9Bpg.lv25y
-    currency_id:
-      in: path
-      name: currency_id
-      required: true
+    discard:
+      in: query
+      name: discard
+      required: false
       schema:
-        type: string
-        maxLength: 50
-        example: USD
+        type: boolean
+        example: false
     version_query:
       in: query
       name: version
@@ -11099,6 +11923,13 @@ components:
       schema:
         type: boolean
         example: true
+    schedule_id:
+      in: path
+      name: schedule_id
+      required: true
+      schema:
+        type: string
+        example: sch.20aUyEZSuYq.SoGbS
     account_id:
       in: path
       description: account_id corresponding to an account
@@ -12646,16 +13477,6 @@ components:
           - mode: DISASSOCIATE
             effectiveFrom: '2022-08-04'
             effectiveUntil: '2022-09-04'
-    AddCurrencyToPricePlanRequest:
-      value:
-        currency: USD
-        usageRates:
-          - usageMeterId: um.1zYnCiM9Bpg.1zYn
-            slabRates:
-              - order: 0
-                rate: 100
-                rateConfig:
-                  minimumValue: 0
     UpdateSettingRequest:
       value:
         value: '{"USD":"1"}'
@@ -13037,6 +13858,13 @@ components:
           state: South Carolina
           country: US
         primaryEmail: admin@example.com
+        billingInformation:
+          emailRecipients:
+            - admin@example.com
+            - acme@acme.com
+            - acmeacme@acme.com
+          additionalEmailRecipients:
+            - admin@acme.com
         aliases:
           - alias: account2@acme.com
           - alias: '+1234567890'
@@ -14536,6 +15364,13 @@ components:
           examples:
             EditPricingScheduleRequest:
               $ref: '#/components/examples/EditPricingScheduleRequest'
+    EditAccountScheduleRequest:
+      description: Payload to edit schedules of an account
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/EditAccountScheduleRequest'
     CreatePricePlanRequest:
       description: Payload to create price plan
       required: true
@@ -14604,16 +15439,6 @@ components:
           examples:
             ActivatePricePlanRequest:
               $ref: '#/components/examples/ActivatePricePlanRequest'
-    AddCurrencyToPricePlanRequest:
-      description: Payload to add currency to price plan
-      required: true
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/AddCurrencyToPricePlanRequest'
-          examples:
-            AddCurrencyToPricePlanRequest:
-              $ref: '#/components/examples/AddCurrencyToPricePlanRequest'
     CreateAddOnRequest:
       description: Payload to create addon
       required: true
@@ -14708,6 +15533,48 @@ components:
           examples:
             UpdateIncidentStatusRequest:
               $ref: '#/components/examples/UpdateIncidentStatusRequest'
+    CreatePricePlanV2Request:
+      description: Payload to create price plan
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CreatePricePlanV2Request'
+    UpdatePricePlanV2Request:
+      description: Payload to update price plan
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdatePricePlanV2Request'
+    FinalizePricePlanRequest:
+      description: Payload to finalize price plan
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FinalizePricePlanRequest'
+    BulkRateCardOperationsRequest:
+      description: Payload to bulk rate card operations
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/BulkRateCardOperationsRequest'
+    UpdatePricingRulesRequest:
+      description: Payload to update pricing rules
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdatePricingRulesRequest'
+    FinalizeAccountSchedules:
+      description: Payload to finalize account schedules
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FinalizeAccountSchedules'
     GetMetricsRequest:
       content:
         application/json:
