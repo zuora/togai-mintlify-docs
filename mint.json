@@ -296,7 +296,7 @@
               ]
             },
             {
-              "group": "Plan Associations",
+              "group": "(Deprecated) Plan Associations",
               "pages": [
                 "api-reference/accounts/plan-association/list-pricing-schedules-of-an-account",
                 "api-reference/accounts/plan-association/edit-schedules-of-an-account",
@@ -304,7 +304,7 @@
               ]
             },
             {
-              "group": "Purchases",
+              "group": "(Deprecated) Purchases",
               "pages": [
                 "api-reference/accounts/purchases/get-all-purchases-for-an-account",
                 "api-reference/accounts/purchases/initiate-a-purchase",
@@ -312,12 +312,26 @@
               ]
             },
             {
-              "group": "Proposals",
+              "group": "(Deprecated) Proposals",
               "pages": [
                 "api-reference/accounts/proposals/list-all-proposals-of-an-account",
                 "api-reference/accounts/proposals/propose-a-purchase-of-a-plan",
                 "api-reference/accounts/proposals/get-proposal-information",
                 "api-reference/accounts/proposals/approve-or-decline-a-purchase-of-a-billing-plan"
+              ]
+            },
+            {
+              "group": "Schedules",
+              "pages": [
+                "api-reference/schedules/list-rate-cards",
+                "api-reference/schedules/bulk-rate-card-operations-on-a-schedule",
+                "api-reference/schedules/bulk-edit-schedules-of-an-account",
+                "api-reference/schedules/list-pricing-schedules-of-an-account",
+                "api-reference/schedules/get-list-of-errors-of-a-acc-schedule",
+                "api-reference/schedules/discard-schedules-of-an-account",
+                "api-reference/schedules/finalize-schedules-of-an-account",
+                "api-reference/schedules/list-pricing-rules-of-a-account-schedule",
+                "api-reference/schedules/update-pricing-rules-of-a-account-schedule"
               ]
             }
           ]
@@ -384,17 +398,33 @@
           ]
         },
         {
-          "group": "Price Plans",
+          "group": "(Deprecated) Price Plans",
           "pages": [
             "api-reference/price-plans/list-price-plans",
             "api-reference/price-plans/create-a-price-plan",
             "api-reference/price-plans/get-a-price-plan",
             "api-reference/price-plans/update-a-price-plan",
             "api-reference/price-plans/activate-a-price-plan",
-            "api-reference/price-plans/add-currencies-to-a-price-plan",
-            "api-reference/price-plans/remove-a-draft-currency-from-a-price-plan",
             "api-reference/price-plans/create-a-price-plan-migration",
             "api-reference/price-plans/archive-a-price-plan"
+          ]
+        },
+        {
+          "group": "Price Plan V2",
+          "pages": [
+            "api-reference/priceplanv2/list-price-plans",
+            "api-reference/priceplanv2/create-a-price-plan",
+            "api-reference/priceplanv2/get-a-price-plan",
+            "api-reference/priceplanv2/update-a-price-plan",
+            "api-reference/priceplanv2/discard-a-price-plan",
+            "api-reference/priceplanv2/finalize-a-price-plan",
+            "api-reference/priceplanv2/list-rate-cards-of-a-price-plan",
+            "api-reference/priceplanv2/bulk-rate-card-operations-of-a-price-plan",
+            "api-reference/priceplanv2/list-pricing-rules-of-a-price-plan",
+            "api-reference/priceplanv2/update-pricing-rules-of-a-price-plan",
+            "api-reference/priceplanv2/get-list-of-errors-of-a-price-plan",
+            "api-reference/priceplanv2/list-price-plan-versions",
+            "api-reference/priceplanv2/create-a-price-plan-v2-migration"
           ]
         },
         {
