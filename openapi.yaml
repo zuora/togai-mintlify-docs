@@ -28,7 +28,11 @@ tags:
   - name: Usage Meters
     description: Usage Meter level calls
   - name: Price Plans
-    description: Price Plan level calls
+    description: (DEPRECATED) Price Plan level calls
+  - name: PricePlanV2
+    description: Price Plan V2 level calls
+  - name: Schedules
+    description: Account Schedule level calls
   - name: Pricing Rules
     description: Pricing Rules level calls
   - name: Settings
@@ -418,7 +422,7 @@ paths:
     post:
       tags:
         - Accounts
-      summary: Dissociate or associate a price plan with an account
+      summary: (DEPRECATED) Dissociate or associate a price plan with an account
       description: This API let’s you to detach or attach a price plan with an existing account
       operationId: updatePricingSchedule
       parameters:
@@ -444,7 +448,7 @@ paths:
     post:
       tags:
         - Accounts
-      summary: Initiate a purchase
+      summary: (DEPRECATED) Initiate a purchase
       description: This API let’s you to initiate a purchase for an account
       operationId: initiateOneTimeEntitlementPlan
       parameters:
@@ -469,7 +473,7 @@ paths:
     get:
       tags:
         - Accounts
-      summary: Get all purchases for an account
+      summary: (DEPRECATED) Get all purchases for an account
       description: Get Purchase information for an account using account_id and price_plan_id
       operationId: listAccountPurchases
       parameters:
@@ -548,7 +552,7 @@ paths:
     get:
       tags:
         - Accounts
-      summary: Get a specific purchase of an account
+      summary: (DEPRECATED) Get a specific purchase of an account
       description: Get purchase information of an account for a specific plan using account_id and price_plan_id
       operationId: getPurchase
       parameters:
@@ -572,7 +576,7 @@ paths:
     post:
       tags:
         - Accounts
-      summary: Propose a purchase of a plan
+      summary: (DEPRECATED) Propose a purchase of a plan
       description: This API let’s you to create a proposal of a billing/entitlement plan for an account
       operationId: createProposal
       parameters:
@@ -597,7 +601,7 @@ paths:
     get:
       tags:
         - Accounts
-      summary: List all proposals of an account
+      summary: (DEPRECATED) List all proposals of an account
       description: List all proposals of an account
       operationId: listAccountProposals
       parameters:
@@ -621,7 +625,7 @@ paths:
     get:
       tags:
         - Accounts
-      summary: Get proposal information
+      summary: (DEPRECATED) Get proposal information
       description: Get proposal information
       operationId: getProposal
       parameters:
@@ -645,7 +649,7 @@ paths:
     post:
       tags:
         - Accounts
-      summary: Edit schedules of an account.
+      summary: (DEPRECATED) Edit schedules of an account.
       description: This API let’s you to detach/attach one or more price plans from/to an existing account
       operationId: updatePricingScheduleBatch
       parameters:
@@ -672,7 +676,7 @@ paths:
     get:
       tags:
         - Accounts
-      summary: List pricing schedules of an account
+      summary: (DEPRECATED) List pricing schedules of an account
       description: Returns a list of pricing schedules of an account with pagination and sort.
       operationId: getPricingSchedules
       parameters:
@@ -702,7 +706,7 @@ paths:
     post:
       tags:
         - Accounts
-      summary: Approve or decline a purchase of a billing plan
+      summary: (DEPRECATED) Approve or decline a purchase of a billing plan
       description: This API let’s you to approve or decline a proposal of a billing plan for an account
       operationId: updateProposalStatus
       parameters:
@@ -1246,7 +1250,7 @@ paths:
     post:
       tags:
         - Price Plans
-      summary: Create a price plan
+      summary: (DEPRECATED) Create a price plan
       description: |
         This API let's you create and price plan
         Learn more about [Price Plans](https://docs.togai.com/docs/priceplan)
@@ -1273,7 +1277,7 @@ paths:
     get:
       tags:
         - Price Plans
-      summary: List price plans
+      summary: (DEPRECATED) List price plans
       description: Get a list of price plans
       operationId: getPricePlans
       parameters:
@@ -1298,7 +1302,7 @@ paths:
     patch:
       tags:
         - Price Plans
-      summary: Update a price plan
+      summary: (DEPRECATED) Update a price plan
       description: |
         Update an existing price plan
         Price Plans with status as DRAFT alone can be updated . Learn more about [Price plans](https://docs.togai.com/docs/priceplan) from our Guides
@@ -1325,7 +1329,7 @@ paths:
     get:
       tags:
         - Price Plans
-      summary: Get a price plan
+      summary: (DEPRECATED) Get a price plan
       description: Get a price plan details using price plan id
       operationId: getPricePlan
       parameters:
@@ -1349,7 +1353,7 @@ paths:
     delete:
       tags:
         - Price Plans
-      summary: Archive a price plan
+      summary: (DEPRECATED) Archive a price plan
       description: Archive a price plan
       operationId: archivePricePlan
       parameters:
@@ -1373,7 +1377,7 @@ paths:
     post:
       tags:
         - Price Plans
-      summary: Activate a price plan
+      summary: (DEPRECATED) Activate a price plan
       description: Activate a price plan details using price plan id
       operationId: activatePricePlan
       parameters:
@@ -1399,7 +1403,7 @@ paths:
     get:
       tags:
         - Pricing Rules
-      summary: List pricing rules by price plan id and pricing schedule id
+      summary: (DEPRECATED) List pricing rules by price plan id and pricing schedule id
       description: Get a list of pricing rules using price plan id and pricing schedule id
       operationId: listPricingRulesByScheduleId
       parameters:
@@ -1425,7 +1429,7 @@ paths:
     post:
       tags:
         - Price Plans
-      summary: Create a price plan migration
+      summary: (DEPRECATED) Create a price plan migration
       description: |
         Migrates accounts across price plans. This is an asynchronous process functioning on top of Togai's Jobs 
         framework. Status of the created migrations can be obtained using the [Jobs APIs](https://docs.togai.com/api-reference/jobs/get-the-status-of-a-job)
@@ -1786,7 +1790,7 @@ paths:
     post:
       tags:
         - Price Experimentation
-      summary: Calculate and return the revenue for a existing or new price plan
+      summary: (DEPRECATED) Calculate and return the revenue for a existing or new price plan
       description: Calculate and return the revenue for a existing or new price plan
       operationId: calculateRevenue
       requestBody:
@@ -4609,7 +4613,7 @@ components:
             2. Metrics API return revenue metrics only after the grace period of the account's pricing cycle 
             (i.e, only once the invoice becomes DUE)
           type: boolean
-        allow_ongoing_cycle_updates:
+        allowOngoingCycleUpdates:
           description: |
             Allow changes to price plan from the beginning of the ongoing cycle.
           type: boolean
@@ -8673,6 +8677,7 @@ components:
           required:
             - name
             - pricePlanId
+            - displayName
             - referenceId
             - referenceType
           properties:
@@ -8685,6 +8690,10 @@ components:
             referenceType:
               type: string
               maxLength: 50
+            displayName:
+              type: string
+              description: Display name of the rate card
+              maxLength: 255
             currencies:
               description: List of currencies supported by the rate card
               type: array
@@ -8704,7 +8713,6 @@ components:
       additionalProperties: false
       required:
         - billableId
-        - displayName
         - invoiceTiming
         - rateCardDetails
         - type
