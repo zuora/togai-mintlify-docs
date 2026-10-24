@@ -7,7 +7,7 @@ Install the [Mintlify CLI](https://www.npmjs.com/package/mintlify) to preview th
 npm i -g mintlify
 ```
 
-Generate Open API reference files using mintlify scrapper
+Generate Open API reference files using mintlify scraper
 
 ```
 npx @mintlify/scraping@latest openapi-file openapi.yml -o api-reference
